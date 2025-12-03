@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -13,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppColors
@@ -27,9 +29,7 @@ fun InputField(
     placeholder: String? = null,
 ) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(81.dp),
+        modifier = modifier.size(width = 315.dp, height = 81.dp),
         verticalArrangement = Arrangement.spacedBy(5.dp),
     ) {
         Box(
@@ -38,6 +38,8 @@ fun InputField(
             Text(
                 text = label,
                 style = AppTextStyles.PoppinsSmallRegular.copy(color = AppColors.Black),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
             )
         }
         OutlinedTextField(
@@ -59,6 +61,8 @@ fun InputField(
                     Text(
                         text = placeholder,
                         style = AppTextStyles.PoppinsSmallerRegular.copy(color = AppColors.Gray4),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                     )
                 }
             },
@@ -70,6 +74,30 @@ fun InputField(
 @Composable
 fun InputFieldPreview() {
     val (value, onValueChange) = remember { mutableStateOf("") }
+    InputField(
+        label = "Label",
+        value = value,
+        onValueChange = onValueChange,
+        placeholder = "Placeholder",
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun LongLabelInputFieldPreview() {
+    val (value, onValueChange) = remember { mutableStateOf("") }
+    InputField(
+        label = "Label".repeat(20),
+        value = value,
+        onValueChange = onValueChange,
+        placeholder = "Placeholder".repeat(10),
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun LongValueInputFieldPreview() {
+    val (value, onValueChange) = remember { mutableStateOf("Value".repeat(10)) }
     InputField(
         label = "Label",
         value = value,
