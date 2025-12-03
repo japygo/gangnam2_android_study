@@ -40,9 +40,9 @@ fun Tabs(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             labels.forEachIndexed { index, label ->
-                val backgroundColor =
-                    if (index == selectedIndex) AppColors.Primary100 else AppColors.White
-                val textColor = if (index == selectedIndex) AppColors.White else AppColors.Primary80
+                val isSelected = index == selectedIndex
+                val backgroundColor = if (isSelected) AppColors.Primary100 else AppColors.White
+                val textColor = if (isSelected) AppColors.White else AppColors.Primary80
 
                 Box(
                     modifier = Modifier
