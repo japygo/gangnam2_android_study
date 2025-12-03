@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,6 +29,7 @@ fun Tabs(
 ) {
     val padding = if (labels.size < 3) 15.dp else 7.dp
     val width = if (labels.size < 3) 150.dp else 107.dp
+    val shape = RoundedCornerShape(10.dp)
 
     Box(
         modifier = modifier.size(width = 375.dp, height = 58.dp),
@@ -45,11 +47,9 @@ fun Tabs(
                 Box(
                     modifier = Modifier
                         .size(width = width, height = 33.dp)
+                        .clip(shape)
                         .clickable { onValueChange(index) }
-                        .background(
-                            color = backgroundColor,
-                            shape = RoundedCornerShape(10.dp),
-                        ),
+                        .background(color = backgroundColor, shape = shape),
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(

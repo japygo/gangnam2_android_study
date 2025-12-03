@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,14 +28,14 @@ fun BigButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
+    val shape = RoundedCornerShape(10.dp)
+
     Box(
         modifier = modifier
             .size(width = 315.dp, height = 60.dp)
+            .clip(shape)
             .clickable(onClick = onClick)
-            .background(
-                color = AppColors.Primary100,
-                shape = RoundedCornerShape(10.dp),
-            ),
+            .background(color = AppColors.Primary100, shape = shape),
         contentAlignment = Alignment.Center,
     ) {
         Row(
