@@ -26,8 +26,6 @@ fun Tabs(
     modifier: Modifier = Modifier,
     onValueChange: (Int) -> Unit,
 ) {
-    val labels = labels.toList()
-
     Box(
         modifier = modifier
             .size(375.dp, 58.dp)
