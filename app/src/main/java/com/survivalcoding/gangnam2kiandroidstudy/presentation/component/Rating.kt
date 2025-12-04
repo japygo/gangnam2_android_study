@@ -41,7 +41,7 @@ fun Rating(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Image(
-                painter = painterResource(R.drawable.outline_star),
+                painter = painterResource(R.drawable.bold_star),
                 contentDescription = "star",
                 colorFilter = ColorFilter.tint(color = AppColors.Rating),
                 modifier = Modifier.size(8.dp),
