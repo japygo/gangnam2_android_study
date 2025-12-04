@@ -39,7 +39,7 @@ fun RecipeCard(
             model = recipe.imageUrl,
             contentDescription = "recipe image",
             contentScale = ContentScale.Crop,
-            modifier = it,
+            modifier = it.fillMaxSize(),
         )
     },
 ) {
