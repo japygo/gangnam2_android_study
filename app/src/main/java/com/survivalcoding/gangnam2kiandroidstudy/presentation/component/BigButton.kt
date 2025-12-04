@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -46,7 +47,8 @@ fun BigButton(
             Text(
                 text = text,
                 style = AppTextStyles.PoppinsNormalBold.copy(color = AppColors.White),
-                modifier = Modifier.weight(1f, fill = false),
+                modifier = Modifier.weight(1f),
+                textAlign = TextAlign.Center,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
