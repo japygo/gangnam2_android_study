@@ -27,6 +27,10 @@ fun Tabs(
     modifier: Modifier = Modifier,
     onValueChange: (Int) -> Unit,
 ) {
+    require(labels.isNotEmpty()) { "Tabs requires at least one label" }
+    require(labels.size in 2..3) { "Tabs only supports 2 or 3 labels" }
+    require(selectedIndex in labels.indices) { "selectedIndex must be within labels range" }
+
     val padding = if (labels.size < 3) 15.dp else 7.dp
     val width = if (labels.size < 3) 150.dp else 107.dp
     val shape = RoundedCornerShape(10.dp)
