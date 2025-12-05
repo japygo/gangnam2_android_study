@@ -19,8 +19,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,7 +26,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
@@ -42,6 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.survivalcoding.gangnam2kiandroidstudy.R
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.BigButton
+import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.Checkbox
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.InputField
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppColors
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
@@ -158,16 +156,8 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Checkbox(
-                modifier = Modifier
-                    .size(17.dp)
-                    .clip(RoundedCornerShape(50.dp)),
                 checked = checked,
                 onCheckedChange = setChecked,
-                colors = CheckboxDefaults.colors().copy(
-                    checkedBorderColor = AppColors.Secondary100,
-                    checkedBoxColor = AppColors.Secondary100,
-                    uncheckedBorderColor = AppColors.Secondary100,
-                ),
             )
             Text(
                 text = "Accept terms & Condition",
