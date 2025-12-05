@@ -4,9 +4,9 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,12 +29,13 @@ fun Checkbox(
         modifier = modifier
             .size(17.dp)
             .clip(RoundedCornerShape(5.dp))
-            .clickable {
-                onCheckedChange(!checked)
-            }
+            .toggleable(
+                value = checked,
+                onValueChange = onCheckedChange,
+            )
             .border(
-                border = BorderStroke(width =  1.dp, color = AppColors.Secondary100),
-                shape = RoundedCornerShape(5.dp)
+                border = BorderStroke(width = 1.dp, color = AppColors.Secondary100),
+                shape = RoundedCornerShape(5.dp),
             )
             .background(color = AppColors.White),
         contentAlignment = Alignment.Center,
