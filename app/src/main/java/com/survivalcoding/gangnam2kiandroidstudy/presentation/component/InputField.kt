@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -29,7 +28,9 @@ fun InputField(
     placeholder: String? = null,
 ) {
     Column(
-        modifier = modifier.size(width = 315.dp, height = 81.dp),
+        modifier = modifier
+            .fillMaxWidth()
+            .height(81.dp),
         verticalArrangement = Arrangement.spacedBy(5.dp),
     ) {
         Box(

@@ -7,6 +7,8 @@ import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -42,7 +44,8 @@ fun MediumButton(
 
     Box(
         modifier = modifier
-            .size(width = 243.dp, height = 54.dp)
+            .fillMaxWidth()
+            .height(54.dp)
             .clip(shape)
             .clickable(
                 interactionSource = interactionSource,

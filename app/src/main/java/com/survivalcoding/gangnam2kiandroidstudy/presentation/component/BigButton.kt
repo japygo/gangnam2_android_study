@@ -7,6 +7,8 @@ import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -42,7 +44,8 @@ fun BigButton(
 
     Box(
         modifier = modifier
-            .size(width = 315.dp, height = 60.dp)
+            .fillMaxWidth()
+            .height(60.dp)
             .clip(shape)
             .clickable(
                 interactionSource = interactionSource,
