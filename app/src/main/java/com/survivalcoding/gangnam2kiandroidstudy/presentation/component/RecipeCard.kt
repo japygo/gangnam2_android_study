@@ -18,7 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -29,19 +28,12 @@ import com.survivalcoding.gangnam2kiandroidstudy.R
 import com.survivalcoding.gangnam2kiandroidstudy.data.model.Recipe
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppColors
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
+import com.survivalcoding.gangnam2kiandroidstudy.util.orPreview
 
 @Composable
 fun RecipeCard(
     recipe: Recipe,
     modifier: Modifier = Modifier,
-    imageLoader: @Composable (modifier: Modifier) -> Unit = {
-        AsyncImage(
-            model = recipe.imageUrl,
-            contentDescription = "recipe image",
-            contentScale = ContentScale.Crop,
-            modifier = it.fillMaxSize(),
-        )
-    },
 ) {
     Box(
         modifier = modifier
@@ -49,7 +41,12 @@ fun RecipeCard(
             .height(150.dp)
             .clip(RoundedCornerShape(10.dp)),
     ) {
-        imageLoader(Modifier)
+        AsyncImage(
+            model = recipe.imageUrl.orPreview,
+            contentDescription = "recipe image",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize(),
+        )
 
         Box(
             modifier = Modifier
@@ -138,17 +135,7 @@ fun RecipeCardPreview() {
         time = 20,
         rating = 4.0,
     )
-    RecipeCard(
-        recipe = recipe,
-        imageLoader = {
-            Image(
-                painter = ColorPainter(AppColors.Primary100),
-                contentDescription = "image",
-                contentScale = ContentScale.Crop,
-                modifier = it,
-            )
-        },
-    )
+    RecipeCard(recipe = recipe)
 }
 
 @Preview(showBackground = true)
@@ -161,15 +148,5 @@ fun LongNameRecipeCardPreview() {
         time = 20,
         rating = 4.0,
     )
-    RecipeCard(
-        recipe = recipe,
-        imageLoader = {
-            Image(
-                painter = ColorPainter(AppColors.Primary100),
-                contentDescription = "image",
-                contentScale = ContentScale.Crop,
-                modifier = it,
-            )
-        },
-    )
+    RecipeCard(recipe = recipe)
 }

@@ -1,6 +1,5 @@
 package com.survivalcoding.gangnam2kiandroidstudy.presentation.component
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,19 +23,12 @@ import coil3.compose.AsyncImage
 import com.survivalcoding.gangnam2kiandroidstudy.data.model.Ingredient
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppColors
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
+import com.survivalcoding.gangnam2kiandroidstudy.util.orPreview
 
 @Composable
 fun IngredientItem(
     ingredient: Ingredient,
     modifier: Modifier = Modifier,
-    imageLoader: @Composable (modifier: Modifier) -> Unit = {
-        AsyncImage(
-            model = ingredient.imageUrl,
-            contentDescription = "image",
-            contentScale = ContentScale.Crop,
-            modifier = it
-        )
-    },
 ) {
     Box(
         modifier = modifier
@@ -53,8 +44,11 @@ fun IngredientItem(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            imageLoader(
-                Modifier
+            AsyncImage(
+                model = ingredient.imageUrl.orPreview,
+                contentDescription = "image",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
                     .size(52.dp)
                     .clip(RoundedCornerShape(10.dp)),
             )
@@ -85,17 +79,7 @@ fun IngredientItemPreview() {
         imageUrl = "https://cdn.pixabay.com/photo/2017/10/06/17/17/tomato-2823826_1280.jpg",
         amount = "500g",
     )
-    IngredientItem(
-        ingredient = ingredient,
-        imageLoader = {
-            Image(
-                painter = ColorPainter(AppColors.Primary100),
-                contentDescription = "image",
-                contentScale = ContentScale.Crop,
-                modifier = it,
-            )
-        },
-    )
+    IngredientItem(ingredient = ingredient)
 }
 
 @Preview(showBackground = true)
@@ -106,15 +90,5 @@ fun LongNameIngredientItemPreview() {
         imageUrl = "https://cdn.pixabay.com/photo/2017/10/06/17/17/tomato-2823826_1280.jpg",
         amount = "500g",
     )
-    IngredientItem(
-        ingredient = ingredient,
-        imageLoader = {
-            Image(
-                painter = ColorPainter(AppColors.Primary100),
-                contentDescription = "image",
-                contentScale = ContentScale.Crop,
-                modifier = it,
-            )
-        },
-    )
+    IngredientItem(ingredient = ingredient)
 }
