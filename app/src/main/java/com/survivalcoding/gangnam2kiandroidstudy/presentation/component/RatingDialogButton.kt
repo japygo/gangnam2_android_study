@@ -42,11 +42,9 @@ fun RatingDialogButton(
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
-            ) {
-                if (enabled) {
-                    onClick()
-                }
-            }
+                enabled = enabled,
+                onClick = onClick
+            )
             .background(color = backgroundColor, shape = shape),
         contentAlignment = Alignment.Center,
     ) {
