@@ -38,7 +38,7 @@ class SavedRecipesScreenTest {
 
         recipes.let { data ->
             (0..3).forEach { index ->
-                composeTestRule.onNodeWithText(recipes[index].name).assertIsDisplayed()
+                composeTestRule.onNodeWithText(data[index].name).assertIsDisplayed()
                 composeTestRule.onNodeWithText("By ${data[index].chef}").assertIsDisplayed()
             }
         }

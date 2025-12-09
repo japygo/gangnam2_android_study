@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 class SavedRecipesViewModel(
     private val repository: RecipeRepository,
 ) : ViewModel() {
-    private var _recipes: MutableStateFlow<List<Recipe>> = MutableStateFlow(emptyList())
+    private val _recipes: MutableStateFlow<List<Recipe>> = MutableStateFlow(emptyList())
     val recipes: StateFlow<List<Recipe>> = _recipes.asStateFlow()
 
     init {

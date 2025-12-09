@@ -7,6 +7,7 @@ import com.survivalcoding.gangnam2kiandroidstudy.data.datasource.RecipeDataSourc
 import com.survivalcoding.gangnam2kiandroidstudy.data.mapper.toModel
 import com.survivalcoding.gangnam2kiandroidstudy.data.model.Recipe
 import com.survivalcoding.gangnam2kiandroidstudy.util.isFail
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.withContext
@@ -15,10 +16,11 @@ import java.io.IOException
 
 class RecipeRepositoryImpl(
     private val dataSource: RecipeDataSource,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : RecipeRepository {
 
     override suspend fun getSavedRecipes(): Result<List<Recipe>, NetworkError> =
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher) {
             handleNetworkError {
                 val response = dataSource.getSavedRecipes()
 
