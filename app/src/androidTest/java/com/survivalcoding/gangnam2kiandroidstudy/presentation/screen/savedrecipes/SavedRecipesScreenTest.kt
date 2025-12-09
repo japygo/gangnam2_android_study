@@ -1,0 +1,40 @@
+package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.savedrecipes
+
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithText
+import com.survivalcoding.gangnam2kiandroidstudy.data.datasource.MockRecipeDataSourceImpl
+import com.survivalcoding.gangnam2kiandroidstudy.data.repository.RecipeRepositoryImpl
+import org.junit.Rule
+import org.junit.Test
+
+class SavedRecipesScreenTest {
+
+    @get:Rule
+    val composeTestRule = createComposeRule()
+
+    @Test
+    fun testSavedRecipesScreen() {
+        val viewModel = SavedRecipesViewModel(
+            repository = RecipeRepositoryImpl(
+                dataSource = MockRecipeDataSourceImpl(),
+            ),
+        )
+
+        composeTestRule.setContent {
+            SavedRecipesScreen(
+                viewModel = viewModel,
+            )
+        }
+
+        composeTestRule.onNodeWithText("Saved Recipes").assertIsDisplayed()
+
+        val recipes = viewModel.recipes.value
+        recipes.let { data ->
+            (0..3).forEach { index ->
+                composeTestRule.onNodeWithText(recipes[index].name).assertIsDisplayed()
+                composeTestRule.onNodeWithText("By ${data[index].chef}").assertIsDisplayed()
+            }
+        }
+    }
+}

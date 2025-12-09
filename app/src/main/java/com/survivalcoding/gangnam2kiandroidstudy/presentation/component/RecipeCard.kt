@@ -84,7 +84,7 @@ fun RecipeCard(
                     verticalAlignment = Alignment.Bottom,
                 ) {
                     Column(
-                        modifier = Modifier.weight(1f, fill = false),
+                        modifier = Modifier.weight(1f),
                     ) {
                         Text(
                             text = recipe.name,
