@@ -5,6 +5,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import com.survivalcoding.gangnam2kiandroidstudy.data.datasource.MockRecipeDataSourceImpl
 import com.survivalcoding.gangnam2kiandroidstudy.data.repository.RecipeRepositoryImpl
+import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 
@@ -27,9 +28,14 @@ class SavedRecipesScreenTest {
             )
         }
 
+        composeTestRule.waitForIdle()
+
         composeTestRule.onNodeWithText("Saved Recipes").assertIsDisplayed()
 
         val recipes = viewModel.recipes.value
+
+        assertEquals(10, recipes.size)
+
         recipes.let { data ->
             (0..3).forEach { index ->
                 composeTestRule.onNodeWithText(recipes[index].name).assertIsDisplayed()
