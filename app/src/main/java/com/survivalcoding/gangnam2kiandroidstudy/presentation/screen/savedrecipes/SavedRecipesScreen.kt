@@ -11,12 +11,12 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.survivalcoding.gangnam2kiandroidstudy.core.NetworkError
 import com.survivalcoding.gangnam2kiandroidstudy.core.Result
@@ -31,7 +31,7 @@ fun SavedRecipesScreen(
     modifier: Modifier = Modifier,
     viewModel: SavedRecipesViewModel = viewModel(factory = SavedRecipesViewModel.Factory),
 ) {
-    val recipes by viewModel.recipes.collectAsState()
+    val recipes by viewModel.recipes.collectAsStateWithLifecycle()
 
     Column(
         modifier = modifier
