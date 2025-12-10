@@ -18,6 +18,20 @@ class RemoteRecipeDataSourceImpl(
         return httpResponse.toResponse()
     }
 
+    override suspend fun getRecipes(searchText: String): Response<RecipesDto> {
+        val httpResponse = client.get(baseUrl)
+
+        val response = httpResponse.toResponse<RecipesDto>()
+
+        val body = response.body
+
+        return if (searchText.isBlank()) response else response.copy(
+            body = body?.copy(
+                recipes = body.recipes.filter { it.name?.contains(searchText) ?: false },
+            ),
+        )
+    }
+
     companion object {
         const val BASE_URL =
             "https://raw.githubusercontent.com/junsuk5/mock_json/refs/heads/main/recipe/recipes.json"

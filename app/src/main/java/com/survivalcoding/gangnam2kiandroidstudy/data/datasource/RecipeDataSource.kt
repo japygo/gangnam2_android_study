@@ -5,4 +5,5 @@ import com.survivalcoding.gangnam2kiandroidstudy.data.dto.RecipesDto
 
 interface RecipeDataSource {
     suspend fun getSavedRecipes(): Response<RecipesDto>
+    suspend fun getRecipes(searchText: String): Response<RecipesDto>
 }

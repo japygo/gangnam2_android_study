@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,9 +33,16 @@ import com.survivalcoding.gangnam2kiandroidstudy.ui.AppColors
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
 import com.survivalcoding.gangnam2kiandroidstudy.util.orPreview
 
+enum class RecipeCardSize {
+    Small,
+    Medium,
+    Large,
+}
+
 @Composable
 fun RecipeCard(
     recipe: Recipe,
+    size: RecipeCardSize = RecipeCardSize.Medium,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -98,40 +106,43 @@ fun RecipeCard(
                         )
                     }
 
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(10.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
+
+                    if (size != RecipeCardSize.Small) {
                         Row(
-                            modifier = Modifier.padding(vertical = 4.dp),
-                            horizontalArrangement = Arrangement.spacedBy(5.dp),
+                            horizontalArrangement = Arrangement.spacedBy(10.dp),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            Image(
-                                painter = painterResource(R.drawable.outline_timer),
-                                contentDescription = "timer image",
-                                colorFilter = ColorFilter.tint(color = AppColors.Gray4),
-                                modifier = Modifier.size(17.dp),
-                            )
-                            Text(
-                                text = "${recipe.time} min",
-                                style = AppTextStyles.PoppinsSmallerRegular.copy(color = AppColors.Gray4),
-                            )
-                        }
+                            Row(
+                                modifier = Modifier.padding(vertical = 4.dp),
+                                horizontalArrangement = Arrangement.spacedBy(5.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                Image(
+                                    painter = painterResource(R.drawable.outline_timer),
+                                    contentDescription = "timer image",
+                                    colorFilter = ColorFilter.tint(color = AppColors.Gray4),
+                                    modifier = Modifier.size(17.dp),
+                                )
+                                Text(
+                                    text = "${recipe.time} min",
+                                    style = AppTextStyles.PoppinsSmallerRegular.copy(color = AppColors.Gray4),
+                                )
+                            }
 
-                        Box(
-                            modifier = Modifier
-                                .size(24.dp)
-                                .clip(RoundedCornerShape(12.dp))
-                                .background(color = AppColors.White),
-                            contentAlignment = Alignment.Center,
-                        ) {
-                            Image(
-                                painter = painterResource(R.drawable.outline_bookmark),
-                                contentDescription = "bookmark image",
-                                colorFilter = ColorFilter.tint(color = AppColors.Primary80),
-                                modifier = Modifier.size(16.dp),
-                            )
+                            Box(
+                                modifier = Modifier
+                                    .size(24.dp)
+                                    .clip(RoundedCornerShape(12.dp))
+                                    .background(color = AppColors.White),
+                                contentAlignment = Alignment.Center,
+                            ) {
+                                Image(
+                                    painter = painterResource(R.drawable.outline_bookmark),
+                                    contentDescription = "bookmark image",
+                                    colorFilter = ColorFilter.tint(color = AppColors.Primary80),
+                                    modifier = Modifier.size(16.dp),
+                                )
+                            }
                         }
                     }
                 }
@@ -164,4 +175,17 @@ fun LongNameRecipeCardPreview() {
         rating = 4.0,
     )
     RecipeCard(recipe = recipe)
+}
+
+@Preview(showBackground = true)
+@Composable
+fun SmallSizeRecipeCardPreview() {
+    val recipe = Recipe(
+        name = "spice roasted chicken with flavored rice",
+        imageUrl = "https://cdn.pixabay.com/photo/2017/11/10/15/04/steak-2936531_1280.jpg",
+        chef = "Chef John",
+        time = 20,
+        rating = 4.0,
+    )
+    RecipeCard(recipe = recipe, size = RecipeCardSize.Small, modifier = Modifier.width(150.dp))
 }

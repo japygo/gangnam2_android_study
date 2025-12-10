@@ -6,4 +6,5 @@ import com.survivalcoding.gangnam2kiandroidstudy.data.model.Recipe
 
 interface RecipeRepository {
     suspend fun getSavedRecipes(): Result<List<Recipe>, NetworkError>
+    suspend fun getRecipes(searchText: String): Result<List<Recipe>, NetworkError>
 }

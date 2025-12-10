@@ -41,4 +41,13 @@ class RemoteRecipeDataSourceImplTest {
         assertEquals(HttpStatusCode.OK.value, response.statusCode)
         assertEquals(10, response.body?.recipes?.size)
     }
+
+    @Test
+    fun `검색된 레시피 목록을 가져온다`() = runTest {
+        val searchText = "rice"
+        val response = dataSource.getRecipes(searchText)
+
+        assertEquals(HttpStatusCode.OK.value, response.statusCode)
+        assertEquals(2, response.body?.recipes?.size)
+    }
 }

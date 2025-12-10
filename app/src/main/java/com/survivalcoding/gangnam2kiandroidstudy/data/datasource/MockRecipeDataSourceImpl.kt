@@ -285,8 +285,19 @@ class MockRecipeDataSourceImpl : RecipeDataSource {
     override suspend fun getSavedRecipes(): Response<RecipesDto> {
         return Response(
             statusCode = 200,
-            headers = mapOf(),
+            headers = emptyMap(),
             body = json.decodeFromString(jsonString),
+        )
+    }
+
+    override suspend fun getRecipes(searchText: String): Response<RecipesDto> {
+        val body = json.decodeFromString<RecipesDto>(jsonString)
+        return Response(
+            statusCode = 200,
+            headers = emptyMap(),
+            body = if (searchText.isBlank()) body else RecipesDto(
+                recipes = body.recipes.filter { it.name?.contains(searchText) ?: false },
+            ),
         )
     }
 }

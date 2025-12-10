@@ -35,6 +35,22 @@ class RecipeRepositoryImpl(
             }
         }
 
+    override suspend fun getRecipes(searchText: String): Result<List<Recipe>, NetworkError> =
+        withContext(dispatcher) {
+            handleNetworkError {
+                val response = dataSource.getRecipes(searchText)
+
+                if (response.isFail()) {
+                    return@handleNetworkError Result.Error(NetworkError.HttpError(response.statusCode))
+                }
+
+                val recipes = response.body?.toModel()
+                    ?: return@handleNetworkError Result.Error(NetworkError.Unknown("응답 데이터가 비어있습니다"))
+
+                Result.Success(recipes)
+            }
+        }
+
     private suspend fun <T> handleNetworkError(block: suspend () -> Result<T, NetworkError>): Result<T, NetworkError> =
         try {
             block()
