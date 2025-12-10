@@ -31,11 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.survivalcoding.gangnam2kiandroidstudy.R
-import com.survivalcoding.gangnam2kiandroidstudy.core.NetworkError
-import com.survivalcoding.gangnam2kiandroidstudy.core.Result
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.Recipe
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.RecipeSearchCondition
-import com.survivalcoding.gangnam2kiandroidstudy.data.repository.RecipeRepository
+import com.survivalcoding.gangnam2kiandroidstudy.data.repository.PreviewRecipeRepositoryImpl
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.FilterSearchBottomSheet
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.RecipeCard
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.RecipeCardSize
@@ -176,7 +172,7 @@ fun SearchRecipesScreen(
 @Preview(showBackground = true)
 @Composable
 fun SearchRecipesScreenPreview() {
-    val viewModel = SearchRecipesViewModel(repository)
+    val viewModel = SearchRecipesViewModel(PreviewRecipeRepositoryImpl)
     viewModel.fetchRecipes("")
     SearchRecipesScreen(viewModel = viewModel)
 }
@@ -188,7 +184,7 @@ fun SearchRecipesScreenPreview() {
 @Composable
 fun SearchedSearchRecipesScreenPreview() {
     val viewModel = SearchRecipesViewModel(
-        repository = repository,
+        repository = PreviewRecipeRepositoryImpl,
         state = SearchRecipesUiState(
             searchText = "rice",
         ),
@@ -204,40 +200,10 @@ fun SearchedSearchRecipesScreenPreview() {
 @Composable
 fun LoadingSearchRecipesScreenPreview() {
     val viewModel = SearchRecipesViewModel(
-        repository = repository,
+        repository = PreviewRecipeRepositoryImpl,
         state = SearchRecipesUiState(
             isLoading = true,
         ),
     )
     SearchRecipesScreen(viewModel = viewModel)
-}
-
-private val repository = object : RecipeRepository {
-    override suspend fun getSavedRecipes(): Result<List<Recipe>, NetworkError> {
-        return Result.Success(
-            List(10) {
-                Recipe(
-                    name = "spice roasted chicken with flavored rice",
-                    imageUrl = "https://cdn.pixabay.com/photo/2017/11/10/15/04/steak-2936531_1280.jpg",
-                    chef = "Chef John",
-                    time = 20,
-                    rating = 4.0,
-                )
-            },
-        )
-    }
-
-    override suspend fun getRecipes(searchCondition: RecipeSearchCondition): Result<List<Recipe>, NetworkError> {
-        return Result.Success(
-            List(10) {
-                Recipe(
-                    name = "Traditional spare ribs baked",
-                    imageUrl = "https://cdn.pixabay.com/photo/2017/11/10/15/04/steak-2936531_1280.jpg",
-                    chef = "Chef John",
-                    time = 30,
-                    rating = 4.5,
-                )
-            },
-        )
-    }
 }

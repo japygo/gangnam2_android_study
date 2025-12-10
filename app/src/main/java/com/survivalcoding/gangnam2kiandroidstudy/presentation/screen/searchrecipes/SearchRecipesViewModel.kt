@@ -65,6 +65,7 @@ class SearchRecipesViewModel(
                             isSearched = isSearched,
                         )
                     }
+                    setLoading(false)
                 }
 
                 is Result.Error -> {
@@ -74,9 +75,9 @@ class SearchRecipesViewModel(
                             isSearched = isSearched,
                         )
                     }
+                    setLoading(false)
                 }
             }
-            setLoading(false)
         }
     }
 

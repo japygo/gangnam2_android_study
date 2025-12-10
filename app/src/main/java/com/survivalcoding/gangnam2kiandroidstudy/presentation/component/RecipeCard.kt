@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -106,44 +107,42 @@ fun RecipeCard(
                         )
                     }
 
+                    if (size == RecipeCardSize.Small) {
+                        return@Row
+                    }
 
-                    if (size != RecipeCardSize.Small) {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(10.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            Row(
-                                modifier = Modifier.padding(vertical = 4.dp),
-                                horizontalArrangement = Arrangement.spacedBy(5.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                            ) {
-                                Image(
-                                    painter = painterResource(R.drawable.outline_timer),
-                                    contentDescription = "timer image",
-                                    colorFilter = ColorFilter.tint(color = AppColors.Gray4),
-                                    modifier = Modifier.size(17.dp),
-                                )
-                                Text(
-                                    text = "${recipe.time} min",
-                                    style = AppTextStyles.PoppinsSmallerRegular.copy(color = AppColors.Gray4),
-                                )
-                            }
+                    Row(
+                        modifier = Modifier.padding(vertical = 4.dp),
+                        horizontalArrangement = Arrangement.spacedBy(5.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Image(
+                            painter = painterResource(R.drawable.outline_timer),
+                            contentDescription = "timer image",
+                            colorFilter = ColorFilter.tint(color = AppColors.Gray4),
+                            modifier = Modifier.size(17.dp),
+                        )
+                        Text(
+                            text = "${recipe.time} min",
+                            style = AppTextStyles.PoppinsSmallerRegular.copy(color = AppColors.Gray4),
+                        )
+                    }
 
-                            Box(
-                                modifier = Modifier
-                                    .size(24.dp)
-                                    .clip(RoundedCornerShape(12.dp))
-                                    .background(color = AppColors.White),
-                                contentAlignment = Alignment.Center,
-                            ) {
-                                Image(
-                                    painter = painterResource(R.drawable.outline_bookmark),
-                                    contentDescription = "bookmark image",
-                                    colorFilter = ColorFilter.tint(color = AppColors.Primary80),
-                                    modifier = Modifier.size(16.dp),
-                                )
-                            }
-                        }
+                    Spacer(modifier = Modifier.width(10.dp))
+
+                    Box(
+                        modifier = Modifier
+                            .size(24.dp)
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(color = AppColors.White),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Image(
+                            painter = painterResource(R.drawable.outline_bookmark),
+                            contentDescription = "bookmark image",
+                            colorFilter = ColorFilter.tint(color = AppColors.Primary80),
+                            modifier = Modifier.size(16.dp),
+                        )
                     }
                 }
             }

@@ -18,11 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.survivalcoding.gangnam2kiandroidstudy.core.NetworkError
-import com.survivalcoding.gangnam2kiandroidstudy.core.Result
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.Recipe
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.RecipeSearchCondition
-import com.survivalcoding.gangnam2kiandroidstudy.data.repository.RecipeRepository
+import com.survivalcoding.gangnam2kiandroidstudy.data.repository.PreviewRecipeRepositoryImpl
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.RecipeCard
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppColors
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
@@ -68,35 +64,7 @@ fun SavedRecipesScreen(
 fun SavedRecipesScreenPreview() {
     SavedRecipesScreen(
         viewModel = SavedRecipesViewModel(
-            repository = object : RecipeRepository {
-                override suspend fun getSavedRecipes(): Result<List<Recipe>, NetworkError> {
-                    return Result.Success(
-                        List(10) {
-                            Recipe(
-                                name = "spice roasted chicken with flavored rice",
-                                imageUrl = "https://cdn.pixabay.com/photo/2017/11/10/15/04/steak-2936531_1280.jpg",
-                                chef = "Chef John",
-                                time = 20,
-                                rating = 4.0,
-                            )
-                        },
-                    )
-                }
-
-                override suspend fun getRecipes(searchCondition: RecipeSearchCondition): Result<List<Recipe>, NetworkError> {
-                    return Result.Success(
-                        List(10) {
-                            Recipe(
-                                name = "spice roasted chicken with flavored rice",
-                                imageUrl = "https://cdn.pixabay.com/photo/2017/11/10/15/04/steak-2936531_1280.jpg",
-                                chef = "Chef John",
-                                time = 20,
-                                rating = 4.0,
-                            )
-                        },
-                    )
-                }
-            },
+            repository = PreviewRecipeRepositoryImpl,
         ),
     )
 }
