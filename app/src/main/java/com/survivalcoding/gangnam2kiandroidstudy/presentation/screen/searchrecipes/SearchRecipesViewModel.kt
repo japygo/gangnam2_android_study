@@ -43,28 +43,42 @@ class SearchRecipesViewModel(
             .debounce(DEBOUNCE_TIMEOUT_MILLIS)
             .distinctUntilChanged()
             .onEach {
-                fetchRecipes(searchText = it)
+                fetchRecipes(
+                    searchText = it,
+                    searchFilter = uiState.value.searchFilter,
+                )
             }
             .launchIn(viewModelScope)
     }
 
-    fun fetchRecipes(searchText: String, searchFilter: RecipeSearchFilter = RecipeSearchFilter()) {
+    fun fetchRecipes(
+        searchText: String,
+        searchFilter: RecipeSearchFilter = RecipeSearchFilter(),
+    ) {
         setLoading(true)
 
         val condition = RecipeSearchCondition(searchText, searchFilter)
+
+        val isSearched = searchText.isNotBlank() || searchFilter.isNotNull()
 
         viewModelScope.launch {
             when (val result = repository.getRecipes(condition)) {
                 is Success -> {
                     _uiState.update {
-                        it.copy(recipes = result.data)
+                        it.copy(
+                            recipes = result.data,
+                            isSearched = isSearched,
+                        )
                     }
                     setLoading(false)
                 }
 
                 is Result.Error -> {
                     _uiState.update {
-                        it.copy(recipes = emptyList())
+                        it.copy(
+                            recipes = emptyList(),
+                            isSearched = isSearched,
+                        )
                     }
                     setLoading(false)
                 }
