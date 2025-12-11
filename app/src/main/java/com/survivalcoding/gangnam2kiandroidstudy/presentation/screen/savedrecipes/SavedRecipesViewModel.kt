@@ -7,8 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.survivalcoding.gangnam2kiandroidstudy.AppApplication
-import com.survivalcoding.gangnam2kiandroidstudy.core.AppResult.Error
-import com.survivalcoding.gangnam2kiandroidstudy.core.AppResult.Success
+import com.survivalcoding.gangnam2kiandroidstudy.core.AppResult
 import com.survivalcoding.gangnam2kiandroidstudy.data.model.Recipe
 import com.survivalcoding.gangnam2kiandroidstudy.data.repository.RecipeRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,11 +28,11 @@ class SavedRecipesViewModel(
     fun getSavedRecipes() {
         viewModelScope.launch {
             when (val result = repository.getSavedRecipes()) {
-                is Success -> {
+                is AppResult.Success -> {
                     _recipes.value = result.data
                 }
 
-                is Error -> {
+                is AppResult.Error -> {
                     _recipes.value = emptyList()
                 }
             }

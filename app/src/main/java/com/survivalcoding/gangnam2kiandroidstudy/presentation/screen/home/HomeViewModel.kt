@@ -7,8 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.survivalcoding.gangnam2kiandroidstudy.AppApplication
-import com.survivalcoding.gangnam2kiandroidstudy.core.AppResult.Error
-import com.survivalcoding.gangnam2kiandroidstudy.core.AppResult.Success
+import com.survivalcoding.gangnam2kiandroidstudy.core.AppResult
 import com.survivalcoding.gangnam2kiandroidstudy.data.model.CategoryFilterType
 import com.survivalcoding.gangnam2kiandroidstudy.data.model.Recipe
 import com.survivalcoding.gangnam2kiandroidstudy.data.model.RecipeSearchCondition
@@ -55,10 +54,10 @@ class HomeViewModel(
                     RecipeSearchCondition(query, RecipeSearchFilter(category = category))
 
                 when (val recipes = recipeRepository.getRecipes(condition)) {
-                    is Success -> {
+                    is AppResult.Success -> {
                         changeRecipes(recipes.data)
                     }
-                    is Error -> {
+                    is AppResult.Error -> {
                         changeRecipes(emptyList())
                     }
                 }
