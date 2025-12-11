@@ -22,7 +22,7 @@ class RecipeCategorySelectorTest {
         composeTestRule.setContent {
             RecipeCategorySelector(
                 category = selectedCategory,
-                onSelectCategory = { selectedCategory = it },
+                onCategorySelect = { selectedCategory = it },
             )
         }
 

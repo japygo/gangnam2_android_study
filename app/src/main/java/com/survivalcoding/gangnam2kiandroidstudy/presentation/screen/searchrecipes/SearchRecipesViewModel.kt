@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.survivalcoding.gangnam2kiandroidstudy.AppApplication
-import com.survivalcoding.gangnam2kiandroidstudy.core.Result
+import com.survivalcoding.gangnam2kiandroidstudy.core.Result.Error
 import com.survivalcoding.gangnam2kiandroidstudy.core.Result.Success
 import com.survivalcoding.gangnam2kiandroidstudy.data.model.RecipeSearchCondition
 import com.survivalcoding.gangnam2kiandroidstudy.data.model.RecipeSearchFilter
@@ -65,7 +65,7 @@ class SearchRecipesViewModel(
                         }
                     }
 
-                    is Result.Error -> {
+                    is Error -> {
                         _uiState.update {
                             it.copy(
                                 recipes = emptyList(),

@@ -24,7 +24,7 @@ import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
 fun RecipeCategorySelector(
     modifier: Modifier = Modifier,
     category: CategoryFilterType = CategoryFilterType.ALL,
-    onSelectCategory: (CategoryFilterType) -> Unit = {},
+    onCategorySelect: (CategoryFilterType) -> Unit = {},
 ) {
     LazyRow(
         modifier = modifier.fillMaxWidth(),
@@ -39,7 +39,7 @@ fun RecipeCategorySelector(
                 modifier = Modifier
                     .height(31.dp)
                     .clip(shape)
-                    .clickable { onSelectCategory(it) }
+                    .clickable { onCategorySelect(it) }
                     .background(color = backgroundColor, shape = shape)
                     .padding(horizontal = 20.dp, vertical = 7.dp),
                 contentAlignment = Alignment.Center,

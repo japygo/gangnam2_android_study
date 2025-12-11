@@ -26,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.survivalcoding.gangnam2kiandroidstudy.R
+import com.survivalcoding.gangnam2kiandroidstudy.data.repository.PreviewRecipeRepositoryImpl
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.RecipeCard
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.RecipeCardSize
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.SearchInputField
@@ -140,7 +141,11 @@ fun SearchRecipesScreen(
 @Preview(showBackground = true)
 @Composable
 fun SearchRecipesScreenPreview() {
-    SearchRecipesScreen()
+    SearchRecipesScreen(
+        uiState = SearchRecipesUiState(
+            recipes = PreviewRecipeRepositoryImpl.sampleRecipes,
+        ),
+    )
 }
 
 @Preview(showBackground = true)
@@ -149,6 +154,7 @@ fun SearchedSearchRecipesScreenPreview() {
     SearchRecipesScreen(
         uiState = SearchRecipesUiState(
             searchText = "rice",
+            recipes = PreviewRecipeRepositoryImpl.sampleRecipes,
         ),
     )
 }
