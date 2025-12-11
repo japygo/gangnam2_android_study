@@ -34,6 +34,7 @@ fun Rating(
                 color = AppColors.Secondary20,
                 shape = RoundedCornerShape(20.dp),
             ),
+        contentAlignment = Alignment.Center,
     ) {
         Row(
             modifier = Modifier.padding(horizontal = 7.dp, vertical = 2.dp),
