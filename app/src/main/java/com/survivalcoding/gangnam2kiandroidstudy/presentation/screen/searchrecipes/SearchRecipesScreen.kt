@@ -127,7 +127,7 @@ fun SearchRecipesScreen(
                 verticalArrangement = Arrangement.spacedBy(15.dp),
                 horizontalArrangement = Arrangement.spacedBy(15.dp),
             ) {
-                items(uiState.recipes) {
+                items(items = uiState.recipes) {
                     RecipeCard(
                         recipe = it,
                         size = RecipeCardSize.Small,

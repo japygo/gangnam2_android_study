@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -51,8 +52,8 @@ fun SavedRecipesScreen(
                 .padding(vertical = 10.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp),
         ) {
-            items(recipes.size) { index ->
-                RecipeCard(recipe = recipes[index])
+            items(items = recipes) {
+                RecipeCard(recipe = it)
             }
         }
     }

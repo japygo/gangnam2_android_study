@@ -29,7 +29,7 @@ fun RecipeCategorySelector(
     LazyRow(
         modifier = modifier.fillMaxWidth(),
     ) {
-        items(CategoryFilterType.entries) {
+        items(items = CategoryFilterType.entries) {
             val shape = RoundedCornerShape(10.dp)
             val isSelected = it == category
             val color = if (isSelected) AppColors.White else AppColors.Primary80
