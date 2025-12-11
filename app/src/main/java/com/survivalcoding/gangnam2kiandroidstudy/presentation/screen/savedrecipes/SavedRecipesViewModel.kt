@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.survivalcoding.gangnam2kiandroidstudy.AppApplication
-import com.survivalcoding.gangnam2kiandroidstudy.core.Result.Error
-import com.survivalcoding.gangnam2kiandroidstudy.core.Result.Success
+import com.survivalcoding.gangnam2kiandroidstudy.core.AppResult.Error
+import com.survivalcoding.gangnam2kiandroidstudy.core.AppResult.Success
 import com.survivalcoding.gangnam2kiandroidstudy.data.model.Recipe
 import com.survivalcoding.gangnam2kiandroidstudy.data.repository.RecipeRepository
 import kotlinx.coroutines.flow.MutableStateFlow

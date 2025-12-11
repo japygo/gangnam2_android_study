@@ -1,6 +1,6 @@
 package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.searchrecipes
 
-import com.survivalcoding.gangnam2kiandroidstudy.core.Result
+import com.survivalcoding.gangnam2kiandroidstudy.core.AppResult
 import com.survivalcoding.gangnam2kiandroidstudy.data.model.CategoryFilterType
 import com.survivalcoding.gangnam2kiandroidstudy.data.model.RateFilterType
 import com.survivalcoding.gangnam2kiandroidstudy.data.model.Recipe
@@ -41,7 +41,7 @@ class SearchRecipesViewModelTest {
 
     @Test
     fun fetchRecipes() = runTest {
-        coGiven { repository.getRecipes(any()) } returns Result.Success(
+        coGiven { repository.getRecipes(any()) } returns AppResult.Success(
             listOf(
                 Recipe(
                     name = "Test Recipe",

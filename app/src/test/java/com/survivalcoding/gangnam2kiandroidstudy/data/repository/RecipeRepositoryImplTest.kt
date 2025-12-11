@@ -1,7 +1,7 @@
 package com.survivalcoding.gangnam2kiandroidstudy.data.repository
 
+import com.survivalcoding.gangnam2kiandroidstudy.core.AppResult
 import com.survivalcoding.gangnam2kiandroidstudy.core.Response
-import com.survivalcoding.gangnam2kiandroidstudy.core.Result
 import com.survivalcoding.gangnam2kiandroidstudy.data.datasource.RecipeDataSource
 import com.survivalcoding.gangnam2kiandroidstudy.data.dto.RecipeDto
 import com.survivalcoding.gangnam2kiandroidstudy.data.dto.RecipesDto
@@ -46,9 +46,9 @@ class RecipeRepositoryImplTest {
 
         val result = repository.getSavedRecipes()
 
-        assertTrue(result is Result.Success)
+        assertTrue(result is AppResult.Success)
 
-        result as Result.Success
+        result as AppResult.Success
 
         assertEquals(3, result.data.size)
         assertEquals("test1", result.data[0].name)
@@ -75,9 +75,9 @@ class RecipeRepositoryImplTest {
         val searchCondition = RecipeSearchCondition(searchText)
         val result = repository.getRecipes(searchCondition)
 
-        assertTrue(result is Result.Success)
+        assertTrue(result is AppResult.Success)
 
-        result as Result.Success
+        result as AppResult.Success
 
         assertEquals(3, result.data.size)
         assertEquals("test1", result.data[0].name)

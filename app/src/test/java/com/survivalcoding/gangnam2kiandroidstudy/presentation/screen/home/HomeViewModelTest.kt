@@ -1,6 +1,6 @@
 package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.home
 
-import com.survivalcoding.gangnam2kiandroidstudy.core.Result
+import com.survivalcoding.gangnam2kiandroidstudy.core.AppResult
 import com.survivalcoding.gangnam2kiandroidstudy.data.model.CategoryFilterType
 import com.survivalcoding.gangnam2kiandroidstudy.data.model.Recipe
 import com.survivalcoding.gangnam2kiandroidstudy.data.repository.RecipeRepository
@@ -41,7 +41,7 @@ class HomeViewModelTest {
     @Test
     fun fetchRecipes() = runTest {
         coGiven { repository.getRecipes(any()) } returns
-                Result.Success(
+                AppResult.Success(
                     listOf(
                         Recipe(
                             name = "Test Recipe",
@@ -89,7 +89,7 @@ class HomeViewModelTest {
 
     @Test
     fun debounceQuery() = runTest {
-        coGiven { repository.getRecipes(any()) } returns Result.Success(emptyList())
+        coGiven { repository.getRecipes(any()) } returns AppResult.Success(emptyList())
 
         viewModel.changeQuery("test1")
         advanceTimeBy(HomeViewModel.DEBOUNCE_TIMEOUT_MILLIS - 100L)

@@ -1,6 +1,6 @@
 package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.savedrecipes
 
-import com.survivalcoding.gangnam2kiandroidstudy.core.Result
+import com.survivalcoding.gangnam2kiandroidstudy.core.AppResult
 import com.survivalcoding.gangnam2kiandroidstudy.data.model.Recipe
 import com.survivalcoding.gangnam2kiandroidstudy.data.repository.RecipeRepository
 import com.survivalcoding.gangnam2kiandroidstudy.test.MainDispatcherRule
@@ -33,7 +33,7 @@ class SavedRecipesViewModelTest {
 
     @Test
     fun testSavedRecipesViewModel() = runTest {
-        coGiven { repository.getSavedRecipes() } returns Result.Success(
+        coGiven { repository.getSavedRecipes() } returns AppResult.Success(
             listOf(
                 Recipe(
                     name = "Test Recipe",

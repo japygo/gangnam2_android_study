@@ -1,7 +1,7 @@
 package com.survivalcoding.gangnam2kiandroidstudy.data.repository
 
+import com.survivalcoding.gangnam2kiandroidstudy.core.AppResult
 import com.survivalcoding.gangnam2kiandroidstudy.core.NetworkError
-import com.survivalcoding.gangnam2kiandroidstudy.core.Result
 import com.survivalcoding.gangnam2kiandroidstudy.data.model.Recipe
 import com.survivalcoding.gangnam2kiandroidstudy.data.model.RecipeSearchCondition
 
@@ -80,9 +80,9 @@ object MockRecipeRepositoryImpl : RecipeRepository {
         ),
     )
 
-    override suspend fun getSavedRecipes(): Result<List<Recipe>, NetworkError> =
-        Result.Success(mockRecipes)
+    override suspend fun getSavedRecipes(): AppResult<List<Recipe>, NetworkError> =
+        AppResult.Success(mockRecipes)
 
-    override suspend fun getRecipes(searchCondition: RecipeSearchCondition): Result<List<Recipe>, NetworkError> =
-        Result.Success(mockRecipes)
+    override suspend fun getRecipes(searchCondition: RecipeSearchCondition): AppResult<List<Recipe>, NetworkError> =
+        AppResult.Success(mockRecipes)
 }
