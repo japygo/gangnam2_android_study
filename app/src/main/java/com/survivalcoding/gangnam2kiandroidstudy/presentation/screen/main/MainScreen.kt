@@ -31,6 +31,7 @@ fun MainScreen(
     modifier: Modifier = Modifier,
     body: @Composable (modifier: Modifier) -> Unit = {},
     backStack: NavBackStack<NavKey>,
+    onFabClick: () -> Unit = {},
 ) {
     val currentRoute = backStack.lastOrNull()
 
@@ -43,6 +44,7 @@ fun MainScreen(
                     backStack.clear()
                     backStack.add(it)
                 },
+                onFabClick = onFabClick,
             )
         },
     ) {

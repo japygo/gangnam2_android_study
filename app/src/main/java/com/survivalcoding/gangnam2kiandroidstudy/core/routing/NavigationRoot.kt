@@ -66,7 +66,7 @@ fun NavigationRoot(modifier: Modifier = Modifier) {
 
                 MainScreen(
                     backStack = backStack,
-                    body = {
+                    body = { modifier ->
                         NavDisplay(
                             modifier = modifier,
                             backStack = backStack,

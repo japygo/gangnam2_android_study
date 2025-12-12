@@ -2,6 +2,7 @@ package com.survivalcoding.gangnam2kiandroidstudy.presentation.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,9 +36,13 @@ import com.survivalcoding.gangnam2kiandroidstudy.util.orPreview
 fun DishCard(
     recipe: Recipe,
     modifier: Modifier = Modifier,
+    onClick: (Long) -> Unit = {},
 ) {
     Box(
-        modifier = modifier.size(150.dp, 231.dp),
+        modifier = modifier
+            .size(150.dp, 231.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .clickable { onClick(recipe.id) },
     ) {
         Box(
             modifier = Modifier

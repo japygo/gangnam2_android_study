@@ -162,10 +162,9 @@ fun HomeScreen(
             ) {
                 items(items = uiState.recipes) {
                     DishCard(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(12.dp))
-                            .clickable(onClick = { onDishClick(it.id) }),
+                        modifier = Modifier,
                         recipe = it,
+                        onClick = onDishClick,
                     )
                 }
             }
