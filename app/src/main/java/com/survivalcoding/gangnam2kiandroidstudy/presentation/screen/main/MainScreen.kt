@@ -17,7 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -149,7 +149,7 @@ private fun RowScope.MainNavigationBarItem(
             Icon(
                 painter = painterResource(if (selected) navItem.selectedIcon else navItem.icon),
                 contentDescription = navItem.label,
-                tint = if (selected) Companion.Unspecified else AppColors.Gray4,
+                tint = if (selected) Color.Unspecified else AppColors.Gray4,
             )
         },
         colors = NavigationBarItemDefaults.colors(
