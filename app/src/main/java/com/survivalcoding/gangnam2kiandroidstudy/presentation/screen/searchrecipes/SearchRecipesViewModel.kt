@@ -10,9 +10,9 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.survivalcoding.gangnam2kiandroidstudy.AppApplication
 import com.survivalcoding.gangnam2kiandroidstudy.core.AppResult
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.RecipeSearchCondition
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.RecipeSearchFilter
-import com.survivalcoding.gangnam2kiandroidstudy.data.repository.RecipeRepository
+import com.survivalcoding.gangnam2kiandroidstudy.domain.model.RecipeSearchCondition
+import com.survivalcoding.gangnam2kiandroidstudy.domain.model.RecipeSearchFilter
+import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.RecipeRepository
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow

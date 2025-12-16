@@ -1,6 +1,6 @@
 package com.survivalcoding.gangnam2kiandroidstudy.data.datasource
 
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.RecipeSearchCondition
+import com.survivalcoding.gangnam2kiandroidstudy.domain.model.RecipeSearchCondition
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond

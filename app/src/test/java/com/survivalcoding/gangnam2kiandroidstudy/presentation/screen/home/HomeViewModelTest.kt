@@ -3,9 +3,9 @@
 package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.home
 
 import com.survivalcoding.gangnam2kiandroidstudy.core.AppResult
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.CategoryFilterType
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.Recipe
-import com.survivalcoding.gangnam2kiandroidstudy.data.repository.RecipeRepository
+import com.survivalcoding.gangnam2kiandroidstudy.domain.model.CategoryFilterType
+import com.survivalcoding.gangnam2kiandroidstudy.domain.model.Recipe
+import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.RecipeRepository
 import com.survivalcoding.gangnam2kiandroidstudy.test.MainDispatcherRule
 import io.mockk.MockKAnnotations
 import io.mockk.bdd.coGiven
@@ -17,6 +17,8 @@ import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -63,11 +65,14 @@ class HomeViewModelTest {
 
         viewModel.fetchRecipes()
 
+        assertTrue(viewModel.uiState.value.isLoading)
+
         advanceUntilIdle()
 
         val recipes = viewModel.uiState.value.recipes
 
         assertEquals(2, recipes.size)
+        assertFalse(viewModel.uiState.value.isLoading)
     }
 
     @Test

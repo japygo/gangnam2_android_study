@@ -2,7 +2,7 @@ package com.survivalcoding.gangnam2kiandroidstudy.data.mapper
 
 import com.survivalcoding.gangnam2kiandroidstudy.data.dto.RecipeDto
 import com.survivalcoding.gangnam2kiandroidstudy.data.dto.RecipesDto
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.Recipe
+import com.survivalcoding.gangnam2kiandroidstudy.domain.model.Recipe
 
 fun RecipesDto.toModel(): List<Recipe> {
     return this.recipes.map(RecipeDto::toModel)

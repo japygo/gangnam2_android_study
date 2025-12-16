@@ -3,12 +3,12 @@
 package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.searchrecipes
 
 import com.survivalcoding.gangnam2kiandroidstudy.core.AppResult
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.CategoryFilterType
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.RateFilterType
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.Recipe
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.RecipeSearchFilter
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.TimeFilterType
-import com.survivalcoding.gangnam2kiandroidstudy.data.repository.RecipeRepository
+import com.survivalcoding.gangnam2kiandroidstudy.domain.model.CategoryFilterType
+import com.survivalcoding.gangnam2kiandroidstudy.domain.model.RateFilterType
+import com.survivalcoding.gangnam2kiandroidstudy.domain.model.Recipe
+import com.survivalcoding.gangnam2kiandroidstudy.domain.model.RecipeSearchFilter
+import com.survivalcoding.gangnam2kiandroidstudy.domain.model.TimeFilterType
+import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.RecipeRepository
 import com.survivalcoding.gangnam2kiandroidstudy.test.MainDispatcherRule
 import io.mockk.MockKAnnotations
 import io.mockk.bdd.coGiven

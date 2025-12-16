@@ -18,10 +18,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.CategoryFilterType
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.RateFilterType
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.RecipeSearchFilter
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.TimeFilterType
+import com.survivalcoding.gangnam2kiandroidstudy.domain.model.CategoryFilterType
+import com.survivalcoding.gangnam2kiandroidstudy.domain.model.RateFilterType
+import com.survivalcoding.gangnam2kiandroidstudy.domain.model.RecipeSearchFilter
+import com.survivalcoding.gangnam2kiandroidstudy.domain.model.TimeFilterType
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppColors
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
 import kotlinx.coroutines.launch

@@ -5,7 +5,7 @@ import com.survivalcoding.gangnam2kiandroidstudy.core.Response
 import com.survivalcoding.gangnam2kiandroidstudy.data.datasource.RecipeDataSource
 import com.survivalcoding.gangnam2kiandroidstudy.data.dto.RecipeDto
 import com.survivalcoding.gangnam2kiandroidstudy.data.dto.RecipesDto
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.RecipeSearchCondition
+import com.survivalcoding.gangnam2kiandroidstudy.domain.model.RecipeSearchCondition
 import io.mockk.MockKAnnotations
 import io.mockk.bdd.coGiven
 import io.mockk.impl.annotations.InjectMockKs

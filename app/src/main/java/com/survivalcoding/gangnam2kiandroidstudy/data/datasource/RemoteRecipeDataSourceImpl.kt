@@ -3,7 +3,7 @@ package com.survivalcoding.gangnam2kiandroidstudy.data.datasource
 import com.survivalcoding.gangnam2kiandroidstudy.core.HttpClientFactory
 import com.survivalcoding.gangnam2kiandroidstudy.core.Response
 import com.survivalcoding.gangnam2kiandroidstudy.data.dto.RecipesDto
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.RecipeSearchCondition
+import com.survivalcoding.gangnam2kiandroidstudy.domain.model.RecipeSearchCondition
 import com.survivalcoding.gangnam2kiandroidstudy.util.toResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get

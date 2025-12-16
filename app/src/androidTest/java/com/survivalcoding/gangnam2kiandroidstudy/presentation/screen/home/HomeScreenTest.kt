@@ -8,8 +8,8 @@ import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
-import com.survivalcoding.gangnam2kiandroidstudy.data.model.Profile
 import com.survivalcoding.gangnam2kiandroidstudy.data.repository.MockRecipeRepositoryImpl
+import com.survivalcoding.gangnam2kiandroidstudy.domain.model.Profile
 import org.junit.Rule
 import org.junit.Test
 
@@ -25,6 +25,7 @@ class HomeScreenTest {
                 uiState = HomeUiState(
                     recipes = MockRecipeRepositoryImpl.mockRecipes,
                     profile = Profile(
+                        id = 1,
                         name = "Jane",
                         imageUrl = "",
                     ),
