@@ -21,8 +21,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation3.runtime.NavBackStack
-import androidx.navigation3.runtime.NavKey
 import com.survivalcoding.gangnam2kiandroidstudy.R
 import com.survivalcoding.gangnam2kiandroidstudy.core.routing.Route
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppColors
@@ -31,21 +29,17 @@ import com.survivalcoding.gangnam2kiandroidstudy.ui.AppColors
 fun MainScreen(
     modifier: Modifier = Modifier,
     body: @Composable (modifier: Modifier) -> Unit = {},
-    backStack: NavBackStack<NavKey>,
+    onNavigate: (Route) -> Unit,
     onFabClick: () -> Unit = {},
+    isSelectedRoute: (Route) -> Boolean,
 ) {
-    val currentRoute = backStack.lastOrNull()
-
     Scaffold(
         modifier = modifier,
         bottomBar = {
             MainNavigationBar(
-                currentRoute = currentRoute,
-                onNavigate = {
-                    backStack.clear()
-                    backStack.add(it)
-                },
+                onNavigate = onNavigate,
                 onFabClick = onFabClick,
+                isSelectedRoute = isSelectedRoute,
             )
         },
     ) {
@@ -60,42 +54,42 @@ private data class NavItem(
     val selectedIcon: Int,
 )
 
+private val leftNavItems = listOf(
+    NavItem(
+        Route.Home,
+        "Home",
+        R.drawable.outline_home,
+        R.drawable.select_home,
+    ),
+    NavItem(
+        Route.SavedRecipes,
+        "Saved Recipes",
+        R.drawable.outline_bookmark,
+        R.drawable.select_bookmark,
+    ),
+)
+
+private val rightNavItems = listOf(
+    NavItem(
+        Route.Notification,
+        "Notification",
+        R.drawable.outline_notification_bing,
+        R.drawable.select_notification_bing,
+    ),
+    NavItem(
+        Route.Profile,
+        "Profile",
+        R.drawable.outline_profile,
+        R.drawable.select_profile,
+    ),
+)
+
 @Composable
 private fun MainNavigationBar(
-    currentRoute: NavKey?,
     onNavigate: (Route) -> Unit,
     onFabClick: () -> Unit = {},
+    isSelectedRoute: (Route) -> Boolean,
 ) {
-    val leftNavItems = listOf(
-        NavItem(
-            Route.Home,
-            "Home",
-            R.drawable.outline_home,
-            R.drawable.select_home,
-        ),
-        NavItem(
-            Route.SavedRecipes,
-            "Saved Recipes",
-            R.drawable.outline_bookmark,
-            R.drawable.select_bookmark,
-        ),
-    )
-
-    val rightNavItems = listOf(
-        NavItem(
-            Route.Notification,
-            "Notification",
-            R.drawable.outline_notification_bing,
-            R.drawable.select_notification_bing,
-        ),
-        NavItem(
-            Route.Profile,
-            "Profile",
-            R.drawable.outline_profile,
-            R.drawable.select_profile,
-        ),
-    )
-
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -107,13 +101,13 @@ private fun MainNavigationBar(
             modifier = Modifier.height(72.dp),
         ) {
             leftNavItems.forEach { navItem ->
-                MainNavigationBarItem(currentRoute, navItem, onNavigate)
+                MainNavigationBarItem(navItem, isSelectedRoute(navItem.route), onNavigate)
             }
 
             Spacer(modifier = Modifier.weight(1f))
 
             rightNavItems.forEach { navItem ->
-                MainNavigationBarItem(currentRoute, navItem, onNavigate)
+                MainNavigationBarItem(navItem, isSelectedRoute(navItem.route), onNavigate)
             }
         }
 
@@ -137,14 +131,13 @@ private fun MainNavigationBar(
 
 @Composable
 private fun RowScope.MainNavigationBarItem(
-    currentRoute: NavKey?,
     navItem: NavItem,
-    onNavigate: (Route) -> Unit,
+    selected: Boolean,
+    onClick: (Route) -> Unit,
 ) {
-    val selected = currentRoute == navItem.route
     NavigationBarItem(
         selected = selected,
-        onClick = { onNavigate(navItem.route) },
+        onClick = { onClick(navItem.route) },
         icon = {
             Icon(
                 painter = painterResource(if (selected) navItem.selectedIcon else navItem.icon),
@@ -161,5 +154,8 @@ private fun RowScope.MainNavigationBarItem(
 @Preview
 @Composable
 fun NavigationBarPreview() {
-    MainNavigationBar(currentRoute = Route.Home, onNavigate = {})
+    MainNavigationBar(
+        onNavigate = {},
+        isSelectedRoute = { it == Route.Home },
+    )
 }

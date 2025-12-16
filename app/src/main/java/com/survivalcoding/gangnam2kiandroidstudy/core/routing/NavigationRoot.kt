@@ -65,7 +65,6 @@ fun NavigationRoot(modifier: Modifier = Modifier) {
                 val backStack = rememberNavBackStack(Route.Home)
 
                 MainScreen(
-                    backStack = backStack,
                     body = { modifier ->
                         NavDisplay(
                             modifier = modifier,
@@ -95,6 +94,15 @@ fun NavigationRoot(modifier: Modifier = Modifier) {
                                 entry<Route.Profile> { ProfileScreen() }
                             },
                         )
+                    },
+                    onNavigate = {
+                        backStack.clear()
+                        backStack.add(it)
+                    },
+                    isSelectedRoute = {
+                        val currentRoute = backStack.lastOrNull()
+
+                        it == currentRoute
                     },
                 )
             }
