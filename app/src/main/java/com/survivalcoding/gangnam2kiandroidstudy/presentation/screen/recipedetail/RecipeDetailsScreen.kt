@@ -1,5 +1,6 @@
 package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.recipedetail
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -47,6 +48,7 @@ fun RecipeDetailsScreen(
     modifier: Modifier = Modifier,
     uiState: RecipeDetailsUiState = RecipeDetailsUiState(),
     onTabClick: (Int) -> Unit = {},
+    onBackClick: () -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -66,7 +68,8 @@ fun RecipeDetailsScreen(
                 contentDescription = "back icon",
                 modifier = Modifier
                     .size(20.dp)
-                    .rotate(180f),
+                    .rotate(180f)
+                    .clickable { onBackClick() },
             )
             Icon(
                 painter = painterResource(R.drawable.outline_more),

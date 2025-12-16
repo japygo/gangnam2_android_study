@@ -107,7 +107,10 @@ fun NavigationRoot(modifier: Modifier = Modifier) {
                 )
             }
             entry<Route.RecipeDetails> { key ->
-                RecipeDetailsRoot(key.recipeId)
+                RecipeDetailsRoot(
+                    id = key.recipeId,
+                    onBackClick = { topLevelBackStack.remove(key) },
+                )
             }
         },
     )

@@ -17,6 +17,7 @@ fun RecipeDetailsRoot(
             LocalContext.current.applicationContext as AppApplication,
         ),
     ),
+    onBackClick: () -> Unit = {},
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -26,5 +27,6 @@ fun RecipeDetailsRoot(
         modifier = modifier,
         uiState = uiState,
         onTabClick = viewModel::changeTab,
+        onBackClick = onBackClick,
     )
 }
