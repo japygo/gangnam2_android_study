@@ -62,10 +62,23 @@ fun NewRecipeCard(
                     modifier = Modifier.padding(top = 5.dp, bottom = 10.dp),
                     horizontalArrangement = Arrangement.spacedBy(2.dp),
                 ) {
-                    repeat(recipe.rating.toInt()) {
+                    val rating = recipe.rating
+                    val filledStars = rating.toInt()
+                    val hasHalfStar = rating % 1 != 0.0
+
+                    repeat(filledStars) {
                         Image(
                             painter = painterResource(R.drawable.bold_star),
                             contentDescription = "star ${it + 1}",
+                            colorFilter = ColorFilter.tint(color = AppColors.Rating),
+                            modifier = Modifier.size(12.dp),
+                        )
+                    }
+
+                    if (hasHalfStar) {
+                        Image(
+                            painter = painterResource(R.drawable.outline_star),
+                            contentDescription = "empty star",
                             colorFilter = ColorFilter.tint(color = AppColors.Rating),
                             modifier = Modifier.size(12.dp),
                         )
@@ -133,6 +146,20 @@ fun NewRecipeCard(
 @Preview
 @Composable
 private fun NewRecipeCardPreview() {
+    val recipe = Recipe(
+        id = 1L,
+        name = "spice roasted chicken with flavored rice".repeat(3),
+        imageUrl = "https://cdn.pixabay.com/photo/2017/11/10/15/04/steak-2936531_1280.jpg",
+        chef = "Chef John",
+        time = 20,
+        rating = 4.0,
+    )
+    NewRecipeCard(recipe = recipe)
+}
+
+@Preview
+@Composable
+private fun HalfStarNewRecipeCardPreview() {
     val recipe = Recipe(
         id = 1L,
         name = "spice roasted chicken with flavored rice".repeat(3),
