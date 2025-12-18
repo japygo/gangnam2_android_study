@@ -65,8 +65,6 @@ class SearchRecipesViewModelTest {
 
         advanceUntilIdle()
 
-        viewModel.fetchRecipes("test")
-
         val recipes = viewModel.uiState.value.recipes
 
         assertEquals(2, recipes.size)
@@ -79,7 +77,7 @@ class SearchRecipesViewModelTest {
         assertTrue(viewModel.uiState.value.searchText.isEmpty())
 
         val searchText = "test"
-        viewModel.changeSearchText(searchText)
+        viewModel.onAction(SearchRecipeAction.ChangeQuery(searchText))
 
         assertEquals(searchText, viewModel.uiState.value.searchText)
     }
@@ -90,7 +88,7 @@ class SearchRecipesViewModelTest {
 
         assertFalse(viewModel.uiState.value.isSheetVisible)
 
-        viewModel.showBottomSheet()
+        viewModel.onAction(SearchRecipeAction.OnFilterClick)
 
         assertTrue(viewModel.uiState.value.isSheetVisible)
     }
@@ -99,11 +97,11 @@ class SearchRecipesViewModelTest {
     fun hideBottomSheet() {
         viewModel = SearchRecipesViewModel(repository)
 
-        viewModel.showBottomSheet()
+        viewModel.onAction(SearchRecipeAction.OnFilterClick)
 
         assertTrue(viewModel.uiState.value.isSheetVisible)
 
-        viewModel.hideBottomSheet()
+        viewModel.onAction(FilterAction.OnDismissRequest)
 
         assertFalse(viewModel.uiState.value.isSheetVisible)
     }
@@ -117,7 +115,7 @@ class SearchRecipesViewModelTest {
         val category = CategoryFilterType.CEREAL
         val searchFilter = RecipeSearchFilter(time, rate, category)
 
-        viewModel.changeSearchFilter(searchFilter)
+        viewModel.onAction(FilterAction.ChangeFilter(searchFilter))
 
         assertEquals(time, viewModel.uiState.value.searchFilter.time)
         assertEquals(rate, viewModel.uiState.value.searchFilter.rate)

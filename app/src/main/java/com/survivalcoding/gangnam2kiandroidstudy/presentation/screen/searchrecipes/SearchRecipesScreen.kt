@@ -37,8 +37,8 @@ import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
 fun SearchRecipesScreen(
     modifier: Modifier = Modifier,
     uiState: SearchRecipesUiState = SearchRecipesUiState(),
-    onSearchTextChange: (String) -> Unit = {},
-    onFilterClick: () -> Unit = {},
+    onAction: (SearchRecipeAction) -> Unit = {},
+    onNavigate: (SearchRecipeNavigation) -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -62,7 +62,7 @@ fun SearchRecipesScreen(
         ) {
             SearchInputField(
                 value = uiState.searchText,
-                onValueChange = onSearchTextChange,
+                onValueChange = { onAction(SearchRecipeAction.ChangeQuery(it)) },
                 placeholder = "Search recipe",
                 modifier = Modifier.weight(1f),
             )
@@ -71,7 +71,7 @@ fun SearchRecipesScreen(
                 modifier = Modifier
                     .size(40.dp)
                     .clip(RoundedCornerShape(10.dp))
-                    .clickable(onClick = onFilterClick)
+                    .clickable { onAction(SearchRecipeAction.OnFilterClick) }
                     .background(
                         color = AppColors.Primary100,
                         shape = RoundedCornerShape(10.dp),
@@ -80,7 +80,7 @@ fun SearchRecipesScreen(
             ) {
                 Icon(
                     painter = painterResource(R.drawable.outline_setting_2),
-                    contentDescription = "setting icon",
+                    contentDescription = "filter icon",
                     tint = AppColors.White,
                     modifier = Modifier.size(20.dp),
                 )
@@ -131,6 +131,9 @@ fun SearchRecipesScreen(
                     RecipeCard(
                         recipe = it,
                         size = RecipeCardSize.Small,
+                        onClick = { recipeId ->
+                            onNavigate(SearchRecipeNavigation.OnRecipeClick(recipeId))
+                        },
                     )
                 }
             }

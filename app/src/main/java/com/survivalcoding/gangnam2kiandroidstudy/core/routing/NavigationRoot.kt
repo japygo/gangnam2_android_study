@@ -88,7 +88,12 @@ fun NavigationRoot(modifier: Modifier = Modifier) {
                                     )
                                 }
                                 entry<Route.SearchRecipes> {
-                                    SearchRecipesRoot()
+                                    SearchRecipesRoot(
+                                        onRecipeClick = { recipeId ->
+                                            topLevelBackStack.removeIf { it is Route.RecipeDetails }
+                                            topLevelBackStack.add(Route.RecipeDetails(recipeId))
+                                        },
+                                    )
                                 }
                                 entry<Route.SavedRecipes> {
                                     SavedRecipesRoot(

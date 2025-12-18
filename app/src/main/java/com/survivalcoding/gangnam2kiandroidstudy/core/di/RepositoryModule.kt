@@ -4,7 +4,7 @@ import com.survivalcoding.gangnam2kiandroidstudy.data.repository.MockBookmarkRep
 import com.survivalcoding.gangnam2kiandroidstudy.data.repository.MockIngredientRepositoryImpl
 import com.survivalcoding.gangnam2kiandroidstudy.data.repository.MockProcedureRepositoryImpl
 import com.survivalcoding.gangnam2kiandroidstudy.data.repository.MockProfileRepositoryImpl
-import com.survivalcoding.gangnam2kiandroidstudy.data.repository.MockRecipeRepositoryImpl
+import com.survivalcoding.gangnam2kiandroidstudy.data.repository.RecipeRepositoryImpl
 import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.BookmarkRepository
 import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.IngredientRepository
 import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.ProcedureRepository
@@ -13,7 +13,7 @@ import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.RecipeReposit
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single<RecipeRepository> { MockRecipeRepositoryImpl }
+    single<RecipeRepository> { RecipeRepositoryImpl(get()) }
     single<BookmarkRepository> { MockBookmarkRepositoryImpl }
     single<ProfileRepository> { MockProfileRepositoryImpl }
     single<IngredientRepository> { MockIngredientRepositoryImpl }

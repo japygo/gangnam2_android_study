@@ -22,6 +22,7 @@ import com.survivalcoding.gangnam2kiandroidstudy.domain.model.CategoryFilterType
 import com.survivalcoding.gangnam2kiandroidstudy.domain.model.RateFilterType
 import com.survivalcoding.gangnam2kiandroidstudy.domain.model.RecipeSearchFilter
 import com.survivalcoding.gangnam2kiandroidstudy.domain.model.TimeFilterType
+import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.searchrecipes.FilterAction
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppColors
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
 import kotlinx.coroutines.launch
@@ -31,9 +32,7 @@ fun FilterSearchBottomSheet(
     modifier: Modifier = Modifier,
     isSheetVisible: Boolean = false,
     searchFilter: RecipeSearchFilter = RecipeSearchFilter(),
-    onDismissRequest: () -> Unit = {},
-    onFilterChange: (RecipeSearchFilter) -> Unit = { _ -> },
-    onFilter: () -> Unit = {},
+    onAction: (FilterAction) -> Unit = {},
 ) {
     if (!isSheetVisible) {
         return
@@ -45,7 +44,7 @@ fun FilterSearchBottomSheet(
     val scope = rememberCoroutineScope()
 
     ModalBottomSheet(
-        onDismissRequest = onDismissRequest,
+        onDismissRequest = { onAction(FilterAction.OnDismissRequest) },
         sheetState = sheetState,
         containerColor = AppColors.White,
         shape = RoundedCornerShape(topStart = 60.dp, topEnd = 60.dp),
@@ -60,11 +59,11 @@ fun FilterSearchBottomSheet(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
             )
 
-            TimeFilterSection(searchFilter, onFilterChange)
+            TimeFilterSection(searchFilter) { onAction(FilterAction.ChangeFilter(it)) }
 
-            RateFilterSection(searchFilter, onFilterChange)
+            RateFilterSection(searchFilter) { onAction(FilterAction.ChangeFilter(it)) }
 
-            CategoryFilterSection(searchFilter, onFilterChange)
+            CategoryFilterSection(searchFilter) { onAction(FilterAction.ChangeFilter(it)) }
 
             SmallButton(
                 text = "Filter",
@@ -74,7 +73,7 @@ fun FilterSearchBottomSheet(
             ) {
                 scope.launch { sheetState.hide() }.invokeOnCompletion {
                     if (!sheetState.isVisible) {
-                        onFilter()
+                        onAction(FilterAction.OnFilter)
                     }
                 }
             }
