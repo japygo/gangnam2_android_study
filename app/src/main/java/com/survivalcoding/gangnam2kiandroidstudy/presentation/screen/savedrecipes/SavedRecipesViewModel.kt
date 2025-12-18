@@ -14,10 +14,8 @@ import kotlinx.coroutines.launch
 class SavedRecipesViewModel(
     private val getSavedRecipesUseCase: GetSavedRecipesUseCase,
     private val toggleBookmarkUseCase: ToggleBookmarkUseCase,
-    savedRecipesUiState: SavedRecipesUiState = SavedRecipesUiState(),
 ) : ViewModel() {
-    private val _uiState: MutableStateFlow<SavedRecipesUiState> =
-        MutableStateFlow(savedRecipesUiState)
+    private val _uiState = MutableStateFlow(SavedRecipesUiState())
     val uiState: StateFlow<SavedRecipesUiState> = _uiState.asStateFlow()
 
     init {

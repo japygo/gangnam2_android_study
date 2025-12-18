@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,6 +38,7 @@ fun DishCard(
     recipe: Recipe,
     modifier: Modifier = Modifier,
     onClick: (Long) -> Unit = {},
+    onBookmarkClick: (Long) -> Unit = {},
 ) {
     Box(
         modifier = modifier
@@ -86,6 +88,7 @@ fun DishCard(
                         modifier = Modifier
                             .size(24.dp)
                             .clip(RoundedCornerShape(12.dp))
+                            .clickable { onBookmarkClick(recipe.id) }
                             .background(color = AppColors.White),
                         contentAlignment = Alignment.Center,
                     ) {
@@ -106,7 +109,7 @@ fun DishCard(
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(109.dp, 110.dp)
-                .clip(RoundedCornerShape(55.dp))
+                .clip(CircleShape)
                 .align(Alignment.TopCenter),
         )
 

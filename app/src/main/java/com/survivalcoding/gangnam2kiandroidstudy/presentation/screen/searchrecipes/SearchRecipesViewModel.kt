@@ -23,9 +23,8 @@ import kotlinx.coroutines.launch
 
 class SearchRecipesViewModel(
     private val repository: RecipeRepository,
-    state: SearchRecipesUiState = SearchRecipesUiState(),
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(state)
+    private val _uiState = MutableStateFlow(SearchRecipesUiState())
     val uiState: StateFlow<SearchRecipesUiState> = _uiState.asStateFlow()
 
     private val searchTextFlow: Flow<String> = uiState.map { it.searchText }

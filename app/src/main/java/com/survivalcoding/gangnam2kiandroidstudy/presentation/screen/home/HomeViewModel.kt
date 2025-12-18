@@ -9,7 +9,9 @@ import com.survivalcoding.gangnam2kiandroidstudy.domain.model.CategoryFilterType
 import com.survivalcoding.gangnam2kiandroidstudy.domain.model.Recipe
 import com.survivalcoding.gangnam2kiandroidstudy.domain.model.RecipeSearchCondition
 import com.survivalcoding.gangnam2kiandroidstudy.domain.model.RecipeSearchFilter
-import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.RecipeRepository
+import com.survivalcoding.gangnam2kiandroidstudy.domain.usecase.GetNewRecipesUseCase
+import com.survivalcoding.gangnam2kiandroidstudy.domain.usecase.GetRecipesUseCase
+import com.survivalcoding.gangnam2kiandroidstudy.domain.usecase.ToggleBookmarkUseCase
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,10 +25,11 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val recipeRepository: RecipeRepository,
-    homeUiState: HomeUiState = HomeUiState(),
+    private val getRecipesUseCase: GetRecipesUseCase,
+    private val getNewRecipesUseCase: GetNewRecipesUseCase,
+    private val toggleBookmarkUseCase: ToggleBookmarkUseCase,
 ) : ViewModel() {
-    private val _uiState: MutableStateFlow<HomeUiState> = MutableStateFlow(homeUiState)
+    private val _uiState: MutableStateFlow<HomeUiState> = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
     private val queryFlow = uiState.map { it.query }
@@ -36,9 +39,20 @@ class HomeViewModel(
             .distinctUntilChanged()
             .onEach { fetchRecipes(query = it) }
             .launchIn(viewModelScope)
+
+        fetchRecipes()
+        fetchNewRecipes()
     }
 
-    fun fetchRecipes(
+    fun onAction(action: HomeAction) {
+        when (action) {
+            is HomeAction.ChangeQuery -> changeQuery(action.query)
+            is HomeAction.SelectCategory -> selectCategory(action.category)
+            is HomeAction.ToggleBookmark -> toggleBookmark(action.recipeId)
+        }
+    }
+
+    private fun fetchRecipes(
         category: CategoryFilterType = uiState.value.category,
         query: String = uiState.value.query,
     ) {
@@ -49,7 +63,7 @@ class HomeViewModel(
                 val condition =
                     RecipeSearchCondition(query, RecipeSearchFilter(category = category))
 
-                when (val recipes = recipeRepository.getRecipes(condition)) {
+                when (val recipes = getRecipesUseCase(condition)) {
                     is AppResult.Success -> {
                         changeRecipes(recipes.data)
                     }
@@ -63,17 +77,48 @@ class HomeViewModel(
         }
     }
 
-    fun selectCategory(category: CategoryFilterType) {
+    private fun fetchNewRecipes() {
+        setNewRecipeLoading(true)
+
+        viewModelScope.launch {
+            try {
+                when (val recipes = getNewRecipesUseCase()) {
+                    is AppResult.Success -> {
+                        changeNewRecipes(recipes.data)
+                    }
+                    is AppResult.Error -> {
+                        changeNewRecipes(emptyList())
+                    }
+                }
+            } finally {
+                setNewRecipeLoading(false)
+            }
+        }
+    }
+
+    private fun selectCategory(category: CategoryFilterType) {
         changeCategory(category)
         fetchRecipes(category)
     }
 
-    fun changeCategory(category: CategoryFilterType) {
+    private fun changeCategory(category: CategoryFilterType) {
         _uiState.update { it.copy(category = category) }
     }
 
-    fun changeQuery(query: String) {
+    private fun changeQuery(query: String) {
         _uiState.update { it.copy(query = query) }
+    }
+
+    private fun toggleBookmark(recipeId: Long) {
+        viewModelScope.launch {
+            when (toggleBookmarkUseCase(recipeId)) {
+                is AppResult.Success -> {
+                    val recipes = uiState.value.recipes.filterNot { it.id == recipeId }
+                    _uiState.update { it.copy(recipes = recipes) }
+                }
+                is AppResult.Error -> Unit
+            }
+        }
     }
 
     private fun changeRecipes(recipes: List<Recipe>) {
@@ -82,6 +127,14 @@ class HomeViewModel(
 
     private fun setLoading(isLoading: Boolean) {
         _uiState.update { it.copy(isLoading = isLoading) }
+    }
+
+    private fun changeNewRecipes(recipes: List<Recipe>) {
+        _uiState.update { it.copy(newRecipes = recipes) }
+    }
+
+    private fun setNewRecipeLoading(isLoading: Boolean) {
+        _uiState.update { it.copy(isNewRecipesLoading = isLoading) }
     }
 
     companion object {

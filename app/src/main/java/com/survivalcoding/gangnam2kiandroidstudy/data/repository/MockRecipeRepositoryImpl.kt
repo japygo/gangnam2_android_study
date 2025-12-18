@@ -16,6 +16,7 @@ object MockRecipeRepositoryImpl : RecipeRepository {
             chef = "Chef John",
             time = 20,
             rating = 4.0,
+            chefImageUrl = "https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png",
         ),
         Recipe(
             id = 2,
@@ -24,6 +25,7 @@ object MockRecipeRepositoryImpl : RecipeRepository {
             chef = "Mark Kelvin",
             time = 20,
             rating = 4.0,
+            chefImageUrl = "https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png",
         ),
         Recipe(
             id = 3,
@@ -32,6 +34,7 @@ object MockRecipeRepositoryImpl : RecipeRepository {
             chef = "Spicy Nelly",
             time = 20,
             rating = 4.0,
+            chefImageUrl = "https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png",
         ),
         Recipe(
             id = 4,
@@ -40,6 +43,7 @@ object MockRecipeRepositoryImpl : RecipeRepository {
             chef = "Kim Dahee",
             time = 30,
             rating = 5.0,
+            chefImageUrl = "https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png",
         ),
         Recipe(
             id = 5,
@@ -48,6 +52,7 @@ object MockRecipeRepositoryImpl : RecipeRepository {
             chef = "Alice Johnson",
             time = 25,
             rating = 4.5,
+            chefImageUrl = "https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png",
         ),
         Recipe(
             id = 6,
@@ -56,6 +61,7 @@ object MockRecipeRepositoryImpl : RecipeRepository {
             chef = "Gordon Ramsay",
             time = 45,
             rating = 5.0,
+            chefImageUrl = "https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png",
         ),
         Recipe(
             id = 7,
@@ -64,6 +70,7 @@ object MockRecipeRepositoryImpl : RecipeRepository {
             chef = "Mario Batali",
             time = 15,
             rating = 4.3,
+            chefImageUrl = "https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png",
         ),
         Recipe(
             id = 8,
@@ -72,6 +79,7 @@ object MockRecipeRepositoryImpl : RecipeRepository {
             chef = "Jiro Ono",
             time = 60,
             rating = 4.8,
+            chefImageUrl = "https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png",
         ),
         Recipe(
             id = 9,
@@ -80,6 +88,7 @@ object MockRecipeRepositoryImpl : RecipeRepository {
             chef = "Julia Child",
             time = 40,
             rating = 4.6,
+            chefImageUrl = "https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png",
         ),
         Recipe(
             id = 10,
@@ -88,6 +97,7 @@ object MockRecipeRepositoryImpl : RecipeRepository {
             chef = "Paul Hollywood",
             time = 30,
             rating = 4.9,
+            chefImageUrl = "https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png",
         ),
     )
 

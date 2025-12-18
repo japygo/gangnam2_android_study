@@ -12,4 +12,6 @@ data class HomeUiState(
     val isLoading: Boolean = false,
     val query: String = "",
     val profile: Profile? = null,
+    val newRecipes: List<Recipe> = emptyList(),
+    val isNewRecipesLoading: Boolean = false,
 )

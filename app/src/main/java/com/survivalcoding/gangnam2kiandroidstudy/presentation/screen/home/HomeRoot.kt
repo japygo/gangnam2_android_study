@@ -10,15 +10,24 @@ import org.koin.androidx.compose.koinViewModel
 fun HomeRoot(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = koinViewModel(),
-    onDishClick: (Long) -> Unit = {},
+    onSearchInputClick: () -> Unit = {},
+    onRecipeClick: (Long) -> Unit = {},
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     HomeScreen(
         modifier = modifier,
         uiState = uiState,
-        onQueryChange = viewModel::changeQuery,
-        onCategorySelect = viewModel::selectCategory,
-        onDishClick = onDishClick,
+        onAction = viewModel::onAction,
+        onNavigate = {
+            when (it) {
+                HomeNavigation.OnSearchInputClick -> {
+                    onSearchInputClick()
+                }
+                is HomeNavigation.OnRecipeClick -> {
+                    onRecipeClick(it.recipeId)
+                }
+            }
+        },
     )
 }

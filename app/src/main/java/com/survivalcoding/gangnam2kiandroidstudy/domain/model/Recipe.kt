@@ -8,4 +8,5 @@ data class Recipe(
     val time: Int,
     val rating: Double,
     val serve: Int = 1,
+    val chefImageUrl: String = "",
 )

@@ -32,9 +32,9 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.survivalcoding.gangnam2kiandroidstudy.R
 import com.survivalcoding.gangnam2kiandroidstudy.data.repository.MockRecipeRepositoryImpl
-import com.survivalcoding.gangnam2kiandroidstudy.domain.model.CategoryFilterType
 import com.survivalcoding.gangnam2kiandroidstudy.domain.model.Profile
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.DishCard
+import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.NewRecipeCard
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.RecipeCategorySelector
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.component.SearchInputField
 import com.survivalcoding.gangnam2kiandroidstudy.ui.AppColors
@@ -45,10 +45,8 @@ import com.survivalcoding.gangnam2kiandroidstudy.util.orPreview
 fun HomeScreen(
     modifier: Modifier = Modifier,
     uiState: HomeUiState = HomeUiState(),
-    onQueryChange: (String) -> Unit = {},
-    onFilterClick: () -> Unit = {},
-    onCategorySelect: (CategoryFilterType) -> Unit = {},
-    onDishClick: (Long) -> Unit = {},
+    onAction: (HomeAction) -> Unit = {},
+    onNavigate: (HomeNavigation) -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -100,18 +98,24 @@ fun HomeScreen(
             horizontalArrangement = Arrangement.spacedBy(20.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            SearchInputField(
-                value = uiState.query,
-                onValueChange = onQueryChange,
-                placeholder = "Search recipe",
-                modifier = Modifier.weight(1f),
-            )
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .clip(RoundedCornerShape(10.dp))
+                    .clickable { onNavigate(HomeNavigation.OnSearchInputClick) },
+            ) {
+                SearchInputField(
+                    value = uiState.query,
+                    onValueChange = { onAction(HomeAction.ChangeQuery(it)) },
+                    placeholder = "Search recipe",
+                )
+            }
 
             Box(
                 modifier = Modifier
                     .size(40.dp)
                     .clip(RoundedCornerShape(10.dp))
-                    .clickable(onClick = onFilterClick)
+                    .clickable(onClick = {})
                     .background(
                         color = AppColors.Primary100,
                         shape = RoundedCornerShape(10.dp),
@@ -129,7 +133,7 @@ fun HomeScreen(
 
         RecipeCategorySelector(
             category = uiState.category,
-            onCategorySelect = onCategorySelect,
+            onCategorySelect = { onAction(HomeAction.SelectCategory(it)) },
             modifier = Modifier
                 .padding(start = 30.dp)
                 .padding(vertical = 15.dp),
@@ -166,7 +170,59 @@ fun HomeScreen(
                 ) {
                     DishCard(
                         recipe = it,
-                        onClick = onDishClick,
+                        onClick = { recipeId ->
+                            onNavigate(HomeNavigation.OnRecipeClick(recipeId))
+                        },
+                        onBookmarkClick = { recipeId ->
+                            onAction(HomeAction.ToggleBookmark(recipeId))
+                        },
+                    )
+                }
+            }
+        }
+
+        Text(
+            text = "New Recipes",
+            style = AppTextStyles.PoppinsLargeBold,
+            modifier = Modifier
+                .padding(horizontal = 30.dp)
+                .padding(top = 20.dp, bottom = 5.dp),
+        )
+
+        if (uiState.isNewRecipesLoading) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(127.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text("Loading...")
+            }
+        } else if (uiState.newRecipes.isEmpty()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(127.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text("데이터가 없습니다.")
+            }
+        } else {
+            LazyRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 30.dp),
+                horizontalArrangement = Arrangement.spacedBy(15.dp),
+            ) {
+                items(
+                    items = uiState.newRecipes,
+                    key = { it.id },
+                ) {
+                    NewRecipeCard(
+                        recipe = it,
+                        onClick = { recipeId ->
+                            onNavigate(HomeNavigation.OnRecipeClick(recipeId))
+                        },
                     )
                 }
             }
@@ -180,6 +236,7 @@ fun HomeScreenPreview() {
     HomeScreen(
         uiState = HomeUiState(
             recipes = MockRecipeRepositoryImpl.mockRecipes,
+            newRecipes = MockRecipeRepositoryImpl.mockRecipes,
             profile = Profile(
                 id = 1,
                 name = "Jane",

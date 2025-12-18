@@ -12,10 +12,8 @@ import kotlinx.coroutines.launch
 
 class RecipeDetailsViewModel(
     private val getRecipeDetailsUseCase: GetRecipeDetailsUseCase,
-    recipeDetailsUiState: RecipeDetailsUiState = RecipeDetailsUiState(),
 ) : ViewModel() {
-    private val _uiState: MutableStateFlow<RecipeDetailsUiState> =
-        MutableStateFlow(recipeDetailsUiState)
+    private val _uiState = MutableStateFlow(RecipeDetailsUiState())
     val uiState: StateFlow<RecipeDetailsUiState> = _uiState.asStateFlow()
 
     fun fetchRecipeDetails(recipeId: Long) {

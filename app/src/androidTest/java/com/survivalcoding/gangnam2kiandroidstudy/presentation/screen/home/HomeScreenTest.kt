@@ -111,7 +111,7 @@ class HomeScreenTest {
         composeTestRule.onNodeWithText("Cereal").assertIsDisplayed()
         composeTestRule.onNodeWithText("Vegetables").assertIsDisplayed()
 
-        composeTestRule.onNodeWithText("데이터가 없습니다.").assertIsDisplayed()
+        composeTestRule.onAllNodesWithText("데이터가 없습니다.").onFirst().assertIsDisplayed()
         composeTestRule.onNode(hasText("Traditional", substring = true)).assertIsNotDisplayed()
         composeTestRule.onAllNodesWithText("Time").onFirst().assertIsNotDisplayed()
         composeTestRule.onAllNodesWithText("20 Mins").onFirst().assertIsNotDisplayed()
