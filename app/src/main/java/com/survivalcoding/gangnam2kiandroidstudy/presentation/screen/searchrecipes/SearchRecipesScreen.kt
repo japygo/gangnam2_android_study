@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.searchrecipes
 
 import androidx.compose.foundation.background
@@ -8,16 +10,21 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,101 +48,118 @@ fun SearchRecipesScreen(
     onAction: (SearchRecipeAction) -> Unit = {},
     onNavigate: (SearchRecipeNavigation) -> Unit = {},
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(color = AppColors.White)
-            .statusBarsPadding()
-            .navigationBarsPadding()
-            .padding(horizontal = 30.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Text(
-            text = stringResource(R.string.search_recipes_title),
-            style = AppTextStyles.PoppinsMediumBold,
-            modifier = Modifier.padding(top = 10.dp, bottom = 17.dp),
-        )
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(20.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            SearchInputField(
-                value = uiState.searchText,
-                onValueChange = { onAction(SearchRecipeAction.ChangeQuery(it)) },
-                placeholder = "Search recipe",
-                modifier = Modifier.weight(1f),
+    Scaffold(
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = {
+                    Text(
+                        text = stringResource(R.string.search_recipes_title),
+                        style = AppTextStyles.PoppinsMediumBold,
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = { onNavigate(SearchRecipeNavigation.OnBackClick) }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "back icon",
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = AppColors.White,
+                ),
             )
+        },
+    ) { innerPadding ->
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .background(color = AppColors.White)
+                .padding(innerPadding)
+                .padding(horizontal = 30.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(20.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                SearchInputField(
+                    value = uiState.searchText,
+                    onValueChange = { onAction(SearchRecipeAction.ChangeQuery(it)) },
+                    placeholder = "Search recipe",
+                    modifier = Modifier.weight(1f),
+                )
 
-            Box(
+                Box(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(RoundedCornerShape(10.dp))
+                        .clickable { onAction(SearchRecipeAction.OnFilterClick) }
+                        .background(
+                            color = AppColors.Primary100,
+                            shape = RoundedCornerShape(10.dp),
+                        )
+                        .padding(10.dp),
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.outline_setting_2),
+                        contentDescription = "filter icon",
+                        tint = AppColors.White,
+                        modifier = Modifier.size(20.dp),
+                    )
+                }
+            }
+
+            Row(
                 modifier = Modifier
-                    .size(40.dp)
-                    .clip(RoundedCornerShape(10.dp))
-                    .clickable { onAction(SearchRecipeAction.OnFilterClick) }
-                    .background(
-                        color = AppColors.Primary100,
-                        shape = RoundedCornerShape(10.dp),
-                    )
-                    .padding(10.dp),
+                    .fillMaxWidth()
+                    .padding(vertical = 20.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                Icon(
-                    painter = painterResource(R.drawable.outline_setting_2),
-                    contentDescription = "filter icon",
-                    tint = AppColors.White,
-                    modifier = Modifier.size(20.dp),
-                )
-            }
-        }
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 20.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                text = if (uiState.isSearched) "Search Result" else "Recent Search",
-                style = AppTextStyles.PoppinsNormalBold,
-            )
-
-            if (uiState.isSearched) {
                 Text(
-                    text = "${uiState.recipes.size} results",
-                    style = AppTextStyles.PoppinsSmallerRegular.copy(color = AppColors.Gray3),
+                    text = if (uiState.isSearched) "Search Result" else "Recent Search",
+                    style = AppTextStyles.PoppinsNormalBold,
                 )
-            }
-        }
 
-        if (uiState.isLoading) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center,
-            ) {
-                Text("Loading...")
-            }
-        } else if (uiState.recipes.isEmpty()) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center,
-            ) {
-                Text("데이터가 없습니다.")
-            }
-        } else {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                verticalArrangement = Arrangement.spacedBy(15.dp),
-                horizontalArrangement = Arrangement.spacedBy(15.dp),
-            ) {
-                items(items = uiState.recipes) {
-                    RecipeCard(
-                        recipe = it,
-                        size = RecipeCardSize.Small,
-                        onClick = { recipeId ->
-                            onNavigate(SearchRecipeNavigation.OnRecipeClick(recipeId))
-                        },
+                if (uiState.isSearched) {
+                    Text(
+                        text = "${uiState.recipes.size} results",
+                        style = AppTextStyles.PoppinsSmallerRegular.copy(color = AppColors.Gray3),
                     )
+                }
+            }
+
+            if (uiState.isLoading) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text("Loading...")
+                }
+            } else if (uiState.recipes.isEmpty()) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text("데이터가 없습니다.")
+                }
+            } else {
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    verticalArrangement = Arrangement.spacedBy(15.dp),
+                    horizontalArrangement = Arrangement.spacedBy(15.dp),
+                ) {
+                    items(items = uiState.recipes) {
+                        RecipeCard(
+                            recipe = it,
+                            size = RecipeCardSize.Small,
+                            onClick = { recipeId ->
+                                onNavigate(SearchRecipeNavigation.OnRecipeClick(recipeId))
+                            },
+                        )
+                    }
                 }
             }
         }

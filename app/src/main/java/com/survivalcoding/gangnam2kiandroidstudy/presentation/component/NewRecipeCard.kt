@@ -17,6 +17,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -45,7 +47,14 @@ fun NewRecipeCard(
     ) {
         Box(
             modifier = Modifier
+                .padding(horizontal = 1.dp, vertical = 1.dp)
                 .size(251.dp, 95.dp)
+                .shadow(
+                    elevation = 8.dp,
+                    shape = RoundedCornerShape(10.dp),
+                    ambientColor = Color(0xFF696969),
+                    spotColor = Color(0xFF696969),
+                )
                 .background(color = AppColors.White, shape = RoundedCornerShape(10.dp))
                 .padding(horizontal = 9.3.dp, vertical = 10.dp),
         ) {

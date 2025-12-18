@@ -3,8 +3,9 @@ package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.savedrecip
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -32,7 +33,6 @@ fun SavedRecipesScreen(
             .fillMaxSize()
             .background(color = AppColors.White)
             .statusBarsPadding()
-            .navigationBarsPadding()
             .padding(horizontal = 30.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -58,6 +58,7 @@ fun SavedRecipesScreen(
                     onBookmarkClick = onBookmarkClick,
                 )
             }
+            item { Spacer(modifier = Modifier.height(6.dp)) }
         }
     }
 }

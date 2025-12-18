@@ -1,5 +1,6 @@
 package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.main
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
@@ -17,6 +18,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,7 +45,7 @@ fun MainScreen(
             )
         },
     ) {
-        body(Modifier.padding(it))
+        body(Modifier.padding(top = 0.dp, bottom = 66.dp))
     }
 }
 
@@ -93,21 +95,31 @@ private fun MainNavigationBar(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(86.dp),
+            .height(86.dp)
+            .background(color = Color.Transparent),
         contentAlignment = Alignment.BottomCenter,
     ) {
-        NavigationBar(
-            containerColor = AppColors.White,
-            modifier = Modifier.height(72.dp),
+        Box(
+            modifier = Modifier
+                .shadow(
+                    elevation = 8.dp,
+                    ambientColor = Color(0xFF6C6C6C),
+                    spotColor = Color(0xFF6C6C6C),
+                ),
         ) {
-            leftNavItems.forEach { navItem ->
-                MainNavigationBarItem(navItem, isSelectedRoute(navItem.route), onNavigate)
-            }
+            NavigationBar(
+                containerColor = AppColors.White,
+                modifier = Modifier.height(72.dp),
+            ) {
+                leftNavItems.forEach { navItem ->
+                    MainNavigationBarItem(navItem, isSelectedRoute(navItem.route), onNavigate)
+                }
 
-            Spacer(modifier = Modifier.weight(1f))
+                Spacer(modifier = Modifier.weight(1f))
 
-            rightNavItems.forEach { navItem ->
-                MainNavigationBarItem(navItem, isSelectedRoute(navItem.route), onNavigate)
+                rightNavItems.forEach { navItem ->
+                    MainNavigationBarItem(navItem, isSelectedRoute(navItem.route), onNavigate)
+                }
             }
         }
 

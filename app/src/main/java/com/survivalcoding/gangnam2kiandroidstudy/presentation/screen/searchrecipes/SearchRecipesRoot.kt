@@ -10,6 +10,7 @@ import org.koin.androidx.compose.koinViewModel
 fun SearchRecipesRoot(
     viewModel: SearchRecipesViewModel = koinViewModel(),
     onRecipeClick: (Long) -> Unit = {},
+    onBackClick: () -> Unit = {},
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -19,6 +20,7 @@ fun SearchRecipesRoot(
         onNavigate = {
             when (it) {
                 is SearchRecipeNavigation.OnRecipeClick -> onRecipeClick(it.recipeId)
+                SearchRecipeNavigation.OnBackClick -> onBackClick()
             }
         },
     )
