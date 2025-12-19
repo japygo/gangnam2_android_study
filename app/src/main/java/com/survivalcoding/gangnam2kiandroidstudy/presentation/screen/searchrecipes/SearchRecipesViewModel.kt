@@ -10,8 +10,10 @@ import com.survivalcoding.gangnam2kiandroidstudy.domain.model.RecipeSearchFilter
 import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.RecipeRepository
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -26,6 +28,9 @@ class SearchRecipesViewModel(
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(SearchRecipesUiState())
     val uiState: StateFlow<SearchRecipesUiState> = _uiState.asStateFlow()
+
+    private val _event = MutableSharedFlow<SearchRecipesEvent>()
+    val event = _event.asSharedFlow()
 
     private val searchTextFlow: Flow<String> = uiState.map { it.searchText }
 
@@ -43,12 +48,13 @@ class SearchRecipesViewModel(
         when (action) {
             is SearchRecipeAction.ChangeQuery -> changeSearchText(action.query)
             SearchRecipeAction.OnFilterClick -> showBottomSheet()
+            is SearchRecipeAction.OnCardClick -> navigateToRecipeDetail(action.recipeId)
         }
     }
 
     fun onAction(action: FilterAction) {
         when (action) {
-            FilterAction.OnDismissRequest -> hideBottomSheet()
+            FilterAction.OnDismissRequest -> dismissFilter()
             is FilterAction.ChangeFilter -> changeSearchFilter(action.searchFilter)
             FilterAction.OnFilter -> applyFilter()
         }
@@ -109,6 +115,11 @@ class SearchRecipesViewModel(
         }
     }
 
+    private fun dismissFilter() {
+        showSnackbar("필터가 취소되었습니다")
+        hideBottomSheet()
+    }
+
     private fun changeSearchFilter(searchFilter: RecipeSearchFilter) {
         _uiState.update {
             it.copy(searchFilter = searchFilter)
@@ -116,6 +127,7 @@ class SearchRecipesViewModel(
     }
 
     private fun applyFilter() {
+        showSnackbar("필터가 적용되었습니다")
         fetchRecipes()
         hideBottomSheet()
     }
@@ -123,6 +135,18 @@ class SearchRecipesViewModel(
     private fun setLoading(isLoading: Boolean) {
         _uiState.update {
             it.copy(isLoading = isLoading)
+        }
+    }
+
+    private fun showSnackbar(message: String) {
+        viewModelScope.launch {
+            _event.emit(SearchRecipesEvent.ShowSnackbar(message))
+        }
+    }
+
+    private fun navigateToRecipeDetail(recipeId: Long) {
+        viewModelScope.launch {
+            _event.emit(SearchRecipesEvent.NavigateToDetails(recipeId))
         }
     }
 
