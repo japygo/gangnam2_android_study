@@ -5,7 +5,7 @@ package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.splash
 import com.survivalcoding.gangnam2kiandroidstudy.core.util.NetworkMonitor
 import com.survivalcoding.gangnam2kiandroidstudy.test.MainDispatcherRule
 import io.mockk.MockKAnnotations
-import io.mockk.bdd.coGiven
+import io.mockk.bdd.given
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -35,7 +35,7 @@ class SplashViewModelTest {
 
     @Test
     fun testIsOnline() = runTest {
-        coGiven { networkMonitor.networkState } returns flowOf(true)
+        given { networkMonitor.networkState } returns flowOf(true)
 
         viewModel = SplashViewModel(networkMonitor)
 
@@ -46,7 +46,7 @@ class SplashViewModelTest {
 
     @Test
     fun testIsOffline() = runTest {
-        coGiven { networkMonitor.networkState } returns flowOf(false)
+        given { networkMonitor.networkState } returns flowOf(false)
 
         viewModel = SplashViewModel(networkMonitor)
 
@@ -58,7 +58,7 @@ class SplashViewModelTest {
     @Test
     fun changeNetworkState() = runTest {
         val networkFlow = MutableSharedFlow<Boolean>()
-        coGiven { networkMonitor.networkState } returns networkFlow
+        given { networkMonitor.networkState } returns networkFlow
 
         viewModel = SplashViewModel(networkMonitor)
 
