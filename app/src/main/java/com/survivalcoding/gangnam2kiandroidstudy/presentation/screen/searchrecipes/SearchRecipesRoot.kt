@@ -18,7 +18,9 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -50,8 +52,9 @@ fun SearchRecipesRoot(
         }
     }
 
-    BackHandler(uiState.isSheetVisible) {
-        viewModel.onAction(FilterAction.OnDismissRequest)
+    var backHandlingEnabled by remember { mutableStateOf(true) }
+    BackHandler(backHandlingEnabled) {
+        onNavigate(SearchRecipeNavigation.Back)
     }
 
     Scaffold(
