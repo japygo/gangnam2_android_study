@@ -25,8 +25,7 @@ import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
 fun SavedRecipesScreen(
     modifier: Modifier = Modifier,
     uiState: SavedRecipesUiState = SavedRecipesUiState(),
-    onCardClick: (Long) -> Unit = {},
-    onBookmarkClick: (Long) -> Unit = {},
+    onAction: (SavedRecipesAction) -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -51,11 +50,15 @@ fun SavedRecipesScreen(
             items(
                 items = uiState.recipes,
                 key = { it.id },
-            ) {
+            ) { recipe ->
                 RecipeCard(
-                    recipe = it,
-                    onClick = onCardClick,
-                    onBookmarkClick = onBookmarkClick,
+                    recipe = recipe,
+                    onClick = {
+                        onAction(SavedRecipesAction.OnCardClick(it))
+                    },
+                    onBookmarkClick = {
+                        onAction(SavedRecipesAction.OnBookmarkClick(it))
+                    },
                 )
             }
             item { Spacer(modifier = Modifier.height(6.dp)) }
