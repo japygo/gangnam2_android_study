@@ -1,5 +1,7 @@
 package com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.home
 
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.test.assertIsDisplayed
@@ -11,8 +13,13 @@ import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import com.survivalcoding.gangnam2kiandroidstudy.data.repository.MockBookmarkRepositoryImpl
+import com.survivalcoding.gangnam2kiandroidstudy.data.repository.MockErrorRecipeRepositoryImpl
 import com.survivalcoding.gangnam2kiandroidstudy.data.repository.MockRecipeRepositoryImpl
 import com.survivalcoding.gangnam2kiandroidstudy.domain.model.Profile
+import com.survivalcoding.gangnam2kiandroidstudy.domain.usecase.GetNewRecipesUseCase
+import com.survivalcoding.gangnam2kiandroidstudy.domain.usecase.GetRecipesUseCase
+import com.survivalcoding.gangnam2kiandroidstudy.domain.usecase.ToggleBookmarkUseCase
 import org.junit.Rule
 import org.junit.Test
 
@@ -20,6 +27,27 @@ class HomeScreenTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
+
+    @Test
+    fun testHomeScreen_FailureScenario() {
+        val viewModel = HomeViewModel(
+            getRecipesUseCase = GetRecipesUseCase(MockErrorRecipeRepositoryImpl),
+            getNewRecipesUseCase = GetNewRecipesUseCase(MockErrorRecipeRepositoryImpl),
+            toggleBookmarkUseCase = ToggleBookmarkUseCase(MockBookmarkRepositoryImpl),
+        )
+
+        composeTestRule.setContent {
+            val uiState by viewModel.uiState.collectAsState()
+            HomeScreen(
+                uiState = uiState,
+                onAction = viewModel::onAction,
+            )
+        }
+
+        // 실패 시 "데이터가 없습니다." 메시지가 표시되는지 확인
+        composeTestRule.onAllNodesWithText("데이터가 없습니다.").onFirst().assertIsDisplayed()
+        composeTestRule.onNode(hasText("Traditional", substring = true)).assertDoesNotExist()
+    }
 
     @Test
     fun testBookmarkToggle() {
