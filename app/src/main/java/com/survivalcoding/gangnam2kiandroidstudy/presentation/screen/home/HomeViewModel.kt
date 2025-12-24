@@ -113,7 +113,13 @@ class HomeViewModel(
         viewModelScope.launch {
             when (toggleBookmarkUseCase(recipeId)) {
                 is AppResult.Success -> {
-                    val recipes = uiState.value.recipes.filterNot { it.id == recipeId }
+                    val recipes = uiState.value.recipes.map { recipe ->
+                        if (recipe.id == recipeId) {
+                            recipe.copy(isSaved = !recipe.isSaved)
+                        } else {
+                            recipe
+                        }
+                    }
                     _uiState.update { it.copy(recipes = recipes) }
                 }
                 is AppResult.Error -> Unit

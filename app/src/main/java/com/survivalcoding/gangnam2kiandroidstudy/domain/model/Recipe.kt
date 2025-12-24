@@ -9,4 +9,5 @@ data class Recipe(
     val rating: Double,
     val serve: Int = 1,
     val chefImageUrl: String = "https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png",
+    val isSaved: Boolean = false,
 )

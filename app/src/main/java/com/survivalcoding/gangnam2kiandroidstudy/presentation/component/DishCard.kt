@@ -92,9 +92,13 @@ fun DishCard(
                             .background(color = AppColors.White),
                         contentAlignment = Alignment.Center,
                     ) {
+                        val iconRes =
+                            if (recipe.isSaved) R.drawable.bold_bookmark else R.drawable.outline_bookmark
+                        val description =
+                            if (recipe.isSaved) "saved bookmark" else "unsaved bookmark"
                         Image(
-                            painter = painterResource(R.drawable.outline_bookmark),
-                            contentDescription = "bookmark image",
+                            painter = painterResource(iconRes),
+                            contentDescription = description,
                             colorFilter = ColorFilter.tint(color = AppColors.Primary80),
                             modifier = Modifier.size(16.dp),
                         )
