@@ -65,7 +65,7 @@ fun ShareDialog(
                     style = AppTextStyles.PoppinsLargeBold,
                 )
                 Text(
-                    text = "Copy recipe link and share your recipe link with  friends and family.",
+                    text = "Copy recipe link and share your recipe link with friends and family.",
                     style = AppTextStyles.PoppinsSmallerRegular,
                 )
                 Row(

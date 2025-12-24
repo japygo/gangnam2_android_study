@@ -137,8 +137,8 @@ class RecipeDetailsViewModel(
                 is AppResult.Success -> {
                     _uiState.update {
                         it.copy(
-                            recipe = uiState.value.recipe?.copy(
-                                isSaved = !(uiState.value.recipe?.isSaved ?: true),
+                            recipe = it.recipe?.copy(
+                                isSaved = !it.recipe.isSaved,
                             ),
                         )
                     }
