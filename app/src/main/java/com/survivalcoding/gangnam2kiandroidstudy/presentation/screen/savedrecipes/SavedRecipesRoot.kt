@@ -36,7 +36,7 @@ fun SavedRecipesRoot(
         snapshotFlow { lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index }
             .distinctUntilChanged()
             .collect {
-                if (it != null && uiState.recipes.isNotEmpty() && it == uiState.recipes.size) {
+                if (it != null && uiState.recipes.size >= 5 && it == uiState.recipes.size) {
                     snackbarHostState.showSnackbar("마지막 데이터입니다.")
                 }
             }

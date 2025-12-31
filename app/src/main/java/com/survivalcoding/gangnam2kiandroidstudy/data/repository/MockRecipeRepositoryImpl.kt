@@ -8,7 +8,7 @@ import com.survivalcoding.gangnam2kiandroidstudy.domain.repository.RecipeReposit
 
 object MockRecipeRepositoryImpl : RecipeRepository {
 
-    val mockRecipes = listOf(
+    var mockRecipes = listOf(
         Recipe(
             id = 1,
             name = "Traditional spare ribs baked",

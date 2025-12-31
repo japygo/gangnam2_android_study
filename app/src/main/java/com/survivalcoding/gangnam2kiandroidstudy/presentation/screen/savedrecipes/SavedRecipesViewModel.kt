@@ -52,8 +52,7 @@ class SavedRecipesViewModel(
         viewModelScope.launch {
             when (toggleBookmarkUseCase(recipeId)) {
                 is AppResult.Success -> {
-                    val recipes = uiState.value.recipes.filterNot { it.id == recipeId }
-                    _uiState.update { it.copy(recipes = recipes) }
+                    getSavedRecipes()
                 }
                 is AppResult.Error -> Unit
             }

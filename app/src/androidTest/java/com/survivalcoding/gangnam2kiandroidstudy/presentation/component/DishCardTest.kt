@@ -35,6 +35,6 @@ class DishCardTest {
         composeTestRule.onNodeWithText(recipe.name).assertIsDisplayed()
         composeTestRule.onNodeWithText("Time").assertIsDisplayed()
         composeTestRule.onNodeWithText("${recipe.time} Mins").assertIsDisplayed()
-        composeTestRule.onNodeWithContentDescription("bookmark image").assertIsDisplayed()
+        composeTestRule.onNodeWithContentDescription("unsaved bookmark").assertIsDisplayed()
     }
 }
