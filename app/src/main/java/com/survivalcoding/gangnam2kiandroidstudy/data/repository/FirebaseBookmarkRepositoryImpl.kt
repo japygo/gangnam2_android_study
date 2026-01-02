@@ -23,11 +23,14 @@ class FirebaseBookmarkRepositoryImpl : BookmarkRepository {
             .collection("bookmarks")
             .document(recipeId.toString())
 
-        if (bookmarkReference.get().await().exists()) {
-            bookmarkReference.delete().await()
-        } else {
-            bookmarkReference.set(mapOf("recipeId" to recipeId)).await()
-        }
+        firestore.runTransaction { transaction ->
+            val bookmark = transaction.get(bookmarkReference)
+            if (bookmark.exists()) {
+                transaction.delete(bookmarkReference)
+            } else {
+                transaction.set(bookmarkReference, mapOf("recipeId" to recipeId))
+            }
+        }.await()
     }
 
     override fun getBookmarks(profileId: Long): Flow<List<Long>> {

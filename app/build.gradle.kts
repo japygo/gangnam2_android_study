@@ -29,6 +29,7 @@ android {
             val properties = Properties()
             properties.load(file.inputStream())
             properties.getProperty("GOOGLE_WEB_CLIENT_ID")
+                ?: throw GradleException("GOOGLE_WEB_CLIENT_ID not found in local.properties")
         }
 
         buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", "\"$googleClientId\"")
