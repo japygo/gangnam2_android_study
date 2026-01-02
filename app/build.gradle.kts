@@ -25,14 +25,15 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        val googleClientId = project.rootProject.file("local.properties").let { file ->
-            val properties = Properties()
-            properties.load(file.inputStream())
-            properties.getProperty("GOOGLE_WEB_CLIENT_ID")
-                ?: throw GradleException("GOOGLE_WEB_CLIENT_ID not found in local.properties")
-        }
+        val file = project.rootProject.file("local.properties")
+        val properties = Properties()
+        properties.load(file.inputStream())
+        val googleClientId = properties.getProperty("GOOGLE_WEB_CLIENT_ID")
+            ?: throw GradleException("GOOGLE_WEB_CLIENT_ID not found in local.properties")
+        val emulatorHost = properties.getProperty("EMULATOR_HOST") ?: "10.0.2.2"
 
         buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", "\"$googleClientId\"")
+        buildConfigField("String", "EMULATOR_HOST", "\"$emulatorHost\"")
     }
 
     buildTypes {

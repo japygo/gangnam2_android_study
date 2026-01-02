@@ -222,17 +222,15 @@ fun SignUpScreen(
                         color = AppColors.White,
                         shape = RoundedCornerShape(10.dp),
                     )
-                    .clickable {}
+                    .clickable {
+                        onAction(SignUpAction.RequestGoogleSignIn)
+                    }
                     .padding(10.dp),
             ) {
                 Image(
                     painter = painterResource(R.drawable.google),
                     contentDescription = "google",
-                    modifier = Modifier
-                        .size(24.dp)
-                        .clickable {
-                            onAction(SignUpAction.RequestGoogleSignIn)
-                        },
+                    modifier = Modifier.size(24.dp),
                 )
             }
 

@@ -20,8 +20,9 @@ class AppApplication : Application() {
         super.onCreate()
 
         if (BuildConfig.FLAVOR in listOf("dev", "qa")) {
-            Firebase.auth.useEmulator("10.0.2.2", 9099)
-            Firebase.firestore.useEmulator("10.0.2.2", 9090)
+            val emulatorHost = BuildConfig.EMULATOR_HOST
+            Firebase.auth.useEmulator(emulatorHost, 9099)
+            Firebase.firestore.useEmulator(emulatorHost, 9090)
         }
 
         startKoin {

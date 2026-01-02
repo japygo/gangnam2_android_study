@@ -68,6 +68,11 @@ class SignUpViewModel(
             return
         }
 
+        if (password.isBlank()) {
+            showSnackbar("Password is empty")
+            return
+        }
+
         if (password != confirmPassword) {
             showSnackbar("Passwords don't match")
             return
