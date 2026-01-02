@@ -20,7 +20,8 @@ import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.savedrecipe
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.searchrecipes.SearchRecipeNavigation
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.searchrecipes.SearchRecipesRoot
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.signin.SignInScreen
-import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.signup.SignUpScreen
+import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.signup.SignUpNavigation
+import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.signup.SignUpRoot
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.splash.SplashNavigation
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.splash.SplashRoot
 
@@ -91,14 +92,18 @@ fun NavigationRoot(
                 )
             }
             entry<Route.SignUp> {
-                SignUpScreen(
-                    onSignUp = {
-                        topLevelBackStack.clear()
-                        topLevelBackStack.add(Route.SignIn)
-                    },
-                    onSignIn = {
-                        topLevelBackStack.clear()
-                        topLevelBackStack.add(Route.SignIn)
+                SignUpRoot(
+                    onNavigate = { navigation ->
+                        when (navigation) {
+                            SignUpNavigation.SignIn -> {
+                                topLevelBackStack.clear()
+                                topLevelBackStack.add(Route.SignIn)
+                            }
+                            SignUpNavigation.Main -> {
+                                topLevelBackStack.clear()
+                                topLevelBackStack.add(Route.Main)
+                            }
+                        }
                     },
                 )
             }

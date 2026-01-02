@@ -47,8 +47,7 @@ import com.survivalcoding.gangnam2kiandroidstudy.ui.AppTextStyles
 @Composable
 fun SignUpScreen(
     modifier: Modifier = Modifier,
-    onSignUp: () -> Unit = {},
-    onSignIn: () -> Unit = {},
+    onAction: (SignUpAction) -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -171,7 +170,9 @@ fun SignUpScreen(
 
         BigButton(
             text = "Sign Up",
-            onClick = onSignUp,
+            onClick = {
+                onAction(SignUpAction.OnSignUp(email, password))
+            },
         )
 
         Row(
@@ -224,7 +225,11 @@ fun SignUpScreen(
                 Image(
                     painter = painterResource(R.drawable.google),
                     contentDescription = "google",
-                    modifier = Modifier.size(24.dp),
+                    modifier = Modifier
+                        .size(24.dp)
+                        .clickable {
+                            onAction(SignUpAction.RequestGoogleSignIn)
+                        },
                 )
             }
 
@@ -270,7 +275,9 @@ fun SignUpScreen(
                     color = AppColors.Secondary100,
                     fontWeight = FontWeight.SemiBold,
                 ),
-                modifier = Modifier.clickable(onClick = onSignIn),
+                modifier = Modifier.clickable {
+                    onAction(SignUpAction.OnSignIn)
+                },
             )
         }
     }
