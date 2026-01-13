@@ -7,10 +7,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.gangnam2kiandroidstudy.R
 import com.survivalcoding.gangnam2kiandroidstudy.databinding.FragmentRecipeListBinding
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.savedrecipes.SavedRecipesAction
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.savedrecipes.SavedRecipesViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -59,6 +61,7 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
             },
         )
         binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         /*
         View 의 라이프사이클에 따르는 scope
@@ -68,8 +71,11 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
             화면이 보일 때만 컬렉트 하도록 사용
              */
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect {
-                    adapter.updateData(it.recipes)
+                /*
+                UI 상태는 마지막 상태로 보여주면 됨
+                 */
+                viewModel.uiState.collectLatest {
+                    adapter.submitList(it.recipes)
                 }
             }
         }
