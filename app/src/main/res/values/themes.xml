@@ -2,4 +2,6 @@
 <resources>
 
     <style name="Theme.Gangnam2kiAndroidStudy" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.Legacy" parent="Theme.AppCompat.Light.NoActionBar" />
 </resources>

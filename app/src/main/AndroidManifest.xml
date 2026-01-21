@@ -15,12 +15,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gangnam2kiAndroidStudy"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".legacy.p02state.StateLegacyActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Legacy">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".presentation.legacy.savedrecipes.SavedRecipesActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="false" />
-
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
