@@ -1,6 +1,8 @@
 package com.survivalcoding.gangnam2kiandroidstudy.core.di
 
 import com.survivalcoding.gangnam2kiandroidstudy.domain.usecase.GetNewRecipesUseCase
+import com.survivalcoding.gangnam2kiandroidstudy.domain.usecase.GetNotificationsUseCase
+import com.survivalcoding.gangnam2kiandroidstudy.domain.usecase.GetProfileUseCase
 import com.survivalcoding.gangnam2kiandroidstudy.domain.usecase.GetRecipeDetailsUseCase
 import com.survivalcoding.gangnam2kiandroidstudy.domain.usecase.GetRecipesUseCase
 import com.survivalcoding.gangnam2kiandroidstudy.domain.usecase.GetSavedRecipesUseCase
@@ -15,6 +17,8 @@ val useCaseModule = module {
     single { GetRecipesUseCase(get()) }
     single { GetSavedRecipesUseCase(get(), get()) }
     single { ToggleBookmarkUseCase(get()) }
+    single { GetProfileUseCase(get()) }
+    single { GetNotificationsUseCase(get()) }
     single { SignUpWithEmailUseCase(get()) }
     single { SignUpWithGoogleUseCase(get()) }
 }

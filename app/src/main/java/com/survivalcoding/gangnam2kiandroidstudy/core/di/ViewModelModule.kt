@@ -1,7 +1,10 @@
 package com.survivalcoding.gangnam2kiandroidstudy.core.di
 
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.home.HomeViewModel
+import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.notification.NotificationViewModel
+import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.profile.ProfileViewModel
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.recipedetail.RecipeDetailsViewModel
+import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.reviews.ReviewsViewModel
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.savedrecipes.SavedRecipesViewModel
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.searchrecipes.SearchRecipesViewModel
 import com.survivalcoding.gangnam2kiandroidstudy.presentation.screen.signup.SignUpViewModel
@@ -15,5 +18,8 @@ val viewModelModule = module {
     viewModelOf(::SavedRecipesViewModel)
     viewModelOf(::SearchRecipesViewModel)
     viewModelOf(::SplashViewModel)
+    viewModelOf(::NotificationViewModel)
+    viewModelOf(::ProfileViewModel)
+    viewModelOf(::ReviewsViewModel)
     viewModelOf(::SignUpViewModel)
 }

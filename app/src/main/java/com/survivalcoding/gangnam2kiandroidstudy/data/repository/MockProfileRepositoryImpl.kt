@@ -118,8 +118,28 @@ object MockProfileRepositoryImpl : ProfileRepository {
         ),
     )
 
+    val mockProfile = Profile(
+        id = 1,
+        name = "Afuwape Abiodun",
+        imageUrl = "https://picsum.photos/id/259/200/300",
+        recipeCount = 4,
+        followerCount = 2_500_000,
+        followingCount = 259,
+        job = "Chef",
+        biography = """
+                    Private Chef
+                    Passionate about food and life 🥘🍲🍝🍱
+                    Passionate about food and life 🥘🍲🍝🍱
+                    Passionate about food and life 🥘🍲🍝🍱
+                    """.trimIndent(),
+    )
+
     override suspend fun getProfileByRecipeId(recipeId: Long): Profile {
         return mockProfiles.firstOrNull { it.id == recipeId }
             ?: throw IllegalStateException("Profile not found for recipeId: $recipeId")
+    }
+
+    override suspend fun getProfile(profileId: Long): Profile {
+        return mockProfile
     }
 }

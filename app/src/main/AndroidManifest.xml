@@ -16,6 +16,16 @@
         android:theme="@style/Theme.Gangnam2kiAndroidStudy"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".legacy.p04webview.WebViewLegacyActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Legacy">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".legacy.p03navigationcomponent.NavigationLegacyActivity"
             android:exported="true"
             android:theme="@style/Theme.Legacy">
